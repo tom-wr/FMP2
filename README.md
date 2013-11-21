@@ -1,8 +1,8 @@
-FMP2
+Formal Methods and Programming
+______________________________
 
-test
-test
-test 
-====
+Airline Reservation System
+==========================
 
-FMP Coursework 2
+
+
