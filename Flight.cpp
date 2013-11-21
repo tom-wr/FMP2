@@ -7,7 +7,7 @@ Flight::Flight(string newcode, int newcapacity, string newdate)
 	date = newdate;
 }
 
-string Flight::getFlightCode() const
+string Flight::getFlightNumber() const
 {
 	return code;
 }
