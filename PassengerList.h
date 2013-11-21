@@ -19,9 +19,13 @@ using namespace std;
 class PassengerList
 {
 public:
+	PassengerList();
 	void add(Passenger& passenger);
 	void remove(string name);
-private:
+	bool search(string name);
+	bool removePassengerFromList(string name, vector<Passenger>& list);
+	bool searchPassengerList(string name, vector<Passenger>& list);
+protected:
 	vector<Passenger> firstList;
 	vector<Passenger> economyList;
 };
