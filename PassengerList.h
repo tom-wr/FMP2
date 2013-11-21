@@ -23,10 +23,11 @@ public:
 	void add(Passenger& passenger);
 	void remove(string name);
 	bool search(string name);
-	bool removePassengerFromList(string name, vector<Passenger>& list);
-	bool searchPassengerList(string name, vector<Passenger>& list);
+
 protected:
 	vector<Passenger> firstList;
 	vector<Passenger> economyList;
+	bool removePassengerFromList(string name, vector<Passenger>& list);
+	bool searchPassengerList(string name, vector<Passenger>& list);
 };
 #endif /* PASSENGERLIST_H_ */
