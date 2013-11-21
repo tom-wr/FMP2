@@ -1,8 +1,8 @@
-Formal Methods and Programming
-------------------------------
+###Formal Methods and Programming###
 
 Airline Reservation System
 ==========================
+
 
 A computerised airline reservation system with the following properties:
 - The system must be able to read in two groups of input data:
