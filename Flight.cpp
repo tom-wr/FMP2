@@ -1,24 +1,40 @@
-#include "Flight.h"
+//
+//  Flight.h
+//  Airline
+//
+//  Created by rachael daminabo on 20/11/2013.
+//  Copyright (c) 2013 rachael daminabo. All rights reserved.
+//
+#ifndef FLIGHT_H_
+#define FLIGHT_H_
 
-Flight::Flight(string newcode, int newcapacity, string newdate)
+#include <string>
+#include "Date.h"
+#include "PassengerList.h"
+
+
+using namespace std;
+
+class Flight
 {
-	code = newcode;
-	capacity = newcapacity;
-	date = newdate;
-}
+    
+public:
+	Flight(string flightNumber, int capacity, string date, string time,PassengerList waitingList, PassengerList passengerList);
+    
+	string getFlightNumber() const;
+	int getFlightCapacity() const;
+	string getFlightDate() const;
+    string getFlightTime() const;
+	PassengerList getPassengerList() const;
+	PassengerList getWaitingList() const;
+    
+private:
+	string flightNumber;
+	int capacity;
+	string date;
+    string time;
+	PassengerList passengerList;
+	PassengerList waitingList;
+};
 
-string Flight::getFlightNumber() const
-{
-	return code;
-}
-
-int Flight::getFlightCapacity() const
-{
-	return capacity;
-}
-
-string Flight::getFlightDate() const
-{
-	return date;
-}
-
+#endif
