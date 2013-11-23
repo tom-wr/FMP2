@@ -1,40 +1,54 @@
 //
-//  Flight.h
+//  Flight.cpp
 //  Airline
 //
 //  Created by rachael daminabo on 20/11/2013.
 //  Copyright (c) 2013 rachael daminabo. All rights reserved.
 //
-#ifndef FLIGHT_H_
-#define FLIGHT_H_
 
-#include <string>
-#include "Date.h"
-#include "PassengerList.h"
+/*
+ 
+ 
+ */
 
+#include "Flight.h"
 
-using namespace std;
-
-class Flight
+Flight::Flight(string newFlightNumber, int newcapacity, string newdate,string newtime, PassengerList newWaitingList, PassengerList newPassengerList)
 {
-    
-public:
-	Flight(string flightNumber, int capacity, string date, string time,PassengerList waitingList, PassengerList passengerList);
-    
-	string getFlightNumber() const;
-	int getFlightCapacity() const;
-	string getFlightDate() const;
-    string getFlightTime() const;
-	PassengerList getPassengerList() const;
-	PassengerList getWaitingList() const;
-    
-private:
-	string flightNumber;
-	int capacity;
-	string date;
-    string time;
-	PassengerList passengerList;
-	PassengerList waitingList;
-};
+	flightNumber = newFlightNumber;
+	capacity = newcapacity;
+	date = newdate;
+    time = newtime;
+	waitingList = newWaitingList;
+    passengerList= newPassengerList;
+}
 
-#endif
+string Flight::getFlightNumber() const
+{
+	return flightNumber;
+}
+
+int Flight::getFlightCapacity() const
+{
+	return capacity;
+}
+
+string Flight::getFlightDate() const
+{
+	return date;
+}
+
+string Flight::getFlightTime() const
+{
+	return time;
+}
+PassengerList Flight::getPassengerList() const
+{
+	return passengerList;
+}
+
+PassengerList Flight::getWaitingList() const
+{
+	return waitingList;
+}
+
