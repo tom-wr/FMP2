@@ -12,6 +12,7 @@
  */
 
 #include "Flight.h"
+Flight::Flight(){}
 
 Flight::Flight(string newFlightNumber, int newcapacity, string newdate,string newtime, PassengerList newWaitingList, PassengerList newPassengerList)
 {
@@ -51,4 +52,22 @@ PassengerList Flight::getWaitingList() const
 {
 	return waitingList;
 }
+void Flight::setFlightNumber(string num) {
+	flightNumber = num;
+    
+}
+void Flight::setFlightCapacity(int cap) {
+    
+	capacity = cap;
+}
 
+void Flight::setFlightDate(string dat)
+{
+    date= dat;
+}
+
+
+void Flight::setFlightTime(string tim)
+{
+    time =tim;
+}

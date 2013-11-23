@@ -19,6 +19,7 @@ class Flight
 {
     
 public:
+	Flight();
 	Flight(string flightNumber, int capacity, string date, string time,PassengerList waitingList, PassengerList passengerList);
     
 	string getFlightNumber() const;
@@ -27,7 +28,10 @@ public:
     string getFlightTime() const;
 	PassengerList getPassengerList() const;
 	PassengerList getWaitingList() const;
-    
+	void setFlightNumber(string num);
+	void setFlightCapacity(int cap);
+	void setFlightDate(string dat);
+	void setFlightTime(string tim);
 private:
 	string flightNumber;
 	int capacity;
