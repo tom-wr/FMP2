@@ -1,27 +1,17 @@
-//
-//  Flight.cpp
-//  Airline
-//
-//  Created by rachael daminabo on 20/11/2013.
-//  Copyright (c) 2013 rachael daminabo. All rights reserved.
-//
-
-/*
- 
- 
- */
-
 #include "Flight.h"
-Flight::Flight(){}
 
-Flight::Flight(string newFlightNumber, int newcapacity, string newdate,string newtime, PassengerList newWaitingList, PassengerList newPassengerList)
+Flight::Flight(string _flightNumber, int _capacity, Date& _date)
+:flightPassengerList(_capacity)
 {
-	flightNumber = newFlightNumber;
-	capacity = newcapacity;
-	date = newdate;
-    time = newtime;
-	waitingList = newWaitingList;
-    passengerList= newPassengerList;
+	flightNumber = _flightNumber;
+	capacity = _capacity;
+	date = _date;
+}
+
+void Flight::addPassenger(Passenger& passenger)
+{
+	if(!flightPassengerList.add(passenger))
+		waitingList.add(passenger);
 }
 
 string Flight::getFlightNumber() const
@@ -34,40 +24,17 @@ int Flight::getFlightCapacity() const
 	return capacity;
 }
 
-string Flight::getFlightDate() const
+Date Flight::getFlightDate() const
 {
 	return date;
 }
 
-string Flight::getFlightTime() const
-{
-	return time;
-}
-PassengerList Flight::getPassengerList() const
-{
-	return passengerList;
-}
-
-PassengerList Flight::getWaitingList() const
+PassengerList& Flight::getWaitingList()
 {
 	return waitingList;
 }
-void Flight::setFlightNumber(string num) {
-	flightNumber = num;
-    
-}
-void Flight::setFlightCapacity(int cap) {
-    
-	capacity = cap;
-}
 
-void Flight::setFlightDate(string dat)
+FlightPassengerList& Flight::getFlightPassengerList()
 {
-    date= dat;
-}
-
-
-void Flight::setFlightTime(string tim)
-{
-    time =tim;
+	return flightPassengerList;
 }
