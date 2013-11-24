@@ -1,18 +1,19 @@
 #include "Passenger.h"
 
-Passenger::Passenger(string newname, char newseat, string newflightNum)
+
+Passenger::Passenger(string _name, Seat::Type _seat, string _flightNums)
 {
-	name = newname;
-	seat = newseat;
-	flightNum = newflightNum;
+	name = _name;
+	seat = _seat;
+	flightNums = _flightNums;
 }
 
-string Passenger::getFlightNumber() const
+string Passenger::getFlightNumbers() const
 {
-	return flightNum;
+	return flightNums;
 }
 
-char Passenger::getSeat() const
+Seat::Type Passenger::getSeat() const
 {
 	return seat;
 }

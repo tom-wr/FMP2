@@ -10,21 +10,22 @@
 
 #include <vector>
 #include <string>
+#include "Seat.h"
 
 using namespace std;
+
 
 class Passenger
 {
 public:
-	Passenger(string name, char seat, string flightNum);
-
-	string getFlightNumber() const;
-	char getSeat(void) const;
+	Passenger(string name, Seat::Type seat, string flightNums);
+	string getFlightNumbers() const;
+	Seat::Type getSeat(void) const;
 	string getName() const;
 
 private:
 	string name;
-	char seat;
-	string flightNum;
+	Seat::Type seat;
+	string flightNums;
 };
 #endif /* PASSENGER_H_ */
