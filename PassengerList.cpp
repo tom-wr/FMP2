@@ -5,9 +5,9 @@ PassengerList::PassengerList(){}
 // Add a passenger to the appropriate list according to assigned seat preference
 void PassengerList::add(Passenger& passenger)
 {
-	if(passenger.getSeat() == 'F')
+	if(passenger.getSeat() == Seat::FIRST)
 		firstList.push_back(passenger);
-	else if(passenger.getSeat() == 'E')
+	else if(passenger.getSeat() == Seat::ECONOMY)
 		economyList.push_back(passenger);
 }
 
@@ -18,6 +18,7 @@ void PassengerList::remove(string name)
 		removePassengerFromList(name, firstList);
 }
 
+// Remove passenger from a given list by searching for matching name
 bool PassengerList::removePassengerFromList(string name, vector<Passenger>& list)
 {
 	for(vector<Passenger>::iterator it = list.begin(); it != list.end(); ++it)
@@ -51,3 +52,31 @@ bool PassengerList::searchPassengerList(string name, vector<Passenger>& list)
 	}
 	return false;
 }
+
+Passenger* PassengerList::getPassenger(string name)
+{
+	Passenger* foundPassenger = getPassengerFromList(name, economyList);
+	if(foundPassenger)
+		return foundPassenger;
+	foundPassenger = getPassengerFromList(name, firstList);
+	if(foundPassenger)
+		return foundPassenger;
+
+	return NULL;
+}
+
+Passenger* PassengerList::getPassengerFromList(string name, vector<Passenger>& list)
+{
+	for(vector<Passenger>::iterator it = list.begin(); it != list.end(); ++it)
+	{
+		if(it->getName() == name)
+		{
+			return &(*it);
+		}
+	}
+	return NULL;
+}
+
+
+
+

@@ -13,6 +13,7 @@
 #include <iostream>
 
 #include "Passenger.h"
+#include "Seat.h"
 
 using namespace std;
 
@@ -23,11 +24,13 @@ public:
 	void add(Passenger& passenger);
 	void remove(string name);
 	bool search(string name);
+	Passenger* getPassenger(string name);
 
 protected:
 	vector<Passenger> firstList;
 	vector<Passenger> economyList;
 	bool removePassengerFromList(string name, vector<Passenger>& list);
 	bool searchPassengerList(string name, vector<Passenger>& list);
+	Passenger* getPassengerFromList(string name, vector<Passenger>& list);
 };
 #endif /* PASSENGERLIST_H_ */
