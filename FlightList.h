@@ -1,30 +1,26 @@
-//
-//  FlightList.h
-//  list
-//
-//  Created by wsr on 13-11-21.
-//  Copyright (c) 2013Âπ¥ wsr. All rights reserved.
-//
+/*
+ * FlightList.h
+ *
+ *  Created on: 22 Nov 2013
+ *      Author: tomto
+ */
 
-#ifndef list_flighlist_h
-#define list_flighlist_h
+#ifndef FLIGHTLIST_H_
+#define FLIGHTLIST_H_
 
-
-#include <string>
 #include <vector>
-#include <iostream>
-
 #include "Flight.h"
-using namespace std;
 
 class FlightList
 {
 public:
-	FlightList();
-    void addFlight(Flight& flight);
-    vector<Flight> list;
-    
+	bool checkFlightExists(string flightNumber);
+	void addFlight(Flight& flight);
+	void addPassengerToFlight(Passenger& passenger, string& flightNumber);
+	Passenger* getPassengerByName(string& name);
+	Flight* getFlight(string& flightNumber);
+	vector<Flight> getList() const;
+private:
+	vector<Flight> flightList;
 };
-
-
-#endif
+#endif /* FLIGHTLIST_H_ */
