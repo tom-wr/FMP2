@@ -17,7 +17,7 @@ class FlightPassengerList : public PassengerList
 {
 public:
 	FlightPassengerList(int capacity);
-	void add(Passenger& passenger);
+	bool add(Passenger& passenger);
 	int getFirstCapacity(void);
 	int getEconomyCapacity(void);
 private:
