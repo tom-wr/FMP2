@@ -1,40 +1,107 @@
+
 #include "Flight.h"
 
-Flight::Flight(string _flightNumber, int _capacity, Date& _date)
-:flightPassengerList(_capacity)
+// Constructor for flight
+Flight::Flight(string& _flightNumber, const int _capacity, Date& _date)
+: flightNumber(_flightNumber), capacity(_capacity), date(_date), bookedList(10)
 {
-	flightNumber = _flightNumber;
-	capacity = _capacity;
-	date = _date;
 }
 
-void Flight::addPassenger(Passenger& passenger)
+// Add a passenger to the flight given the seat type so they are
+// added to the appropriate queue.
+void Flight::addPassengerToBookedList(Passenger* passenger, const Seat::Type seat)
 {
-	if(!flightPassengerList.add(passenger))
-		waitingList.add(passenger);
+	if(seat == Seat::FIRST)
+	{
+		bookedList.addPassengerToFirst(passenger);
+	}
+	else if (seat == Seat::ECONOMY)
+	{
+		bookedList.addPassengerToEconomy(passenger);
+	}
 }
 
-string Flight::getFlightNumber() const
+void Flight::addPassengerToWaitingList(Passenger* passenger, const Seat::Type seat)
 {
-	return flightNumber;
+	if(seat == Seat::FIRST)
+	{
+		waitingList.addPassengerToFirst(passenger);
+	}
+	else if (seat == Seat::ECONOMY)
+	{
+		waitingList.addPassengerToEconomy(passenger);
+	}
 }
 
-int Flight::getFlightCapacity() const
+bool Flight::firstIsFull()
+{
+	cout << "-- checking first is full" << endl;
+	int capacity = bookedList.getFirstCapacity();
+	int size = bookedList.getFirstSize();
+	cout << "-- size is " << size << endl;
+	cout << "-- capacity is " << capacity << endl;;
+
+	if(size < capacity)
+		return false;
+	else
+		return true;
+}
+
+bool Flight::economyIsFull()
+{
+	cout << "-- checking economy is full" << endl;
+	int capacity = bookedList.getEconomyCapacity();
+	int size = bookedList.getEconomySize();
+	cout << "-- size is " << size << endl;
+	cout << "-- capacity is " << capacity << endl;;
+	if(size < capacity)
+		return false;
+	else
+		return true;
+}
+
+bool Flight::checkSeatIsAvailable(Seat::Type seat)
+{
+	cout << "- checking seat is available" << endl;
+	if((seat == Seat::FIRST) && firstIsFull())
+	{
+		cout << "- first seat is unavailable" << endl;
+		return false;
+	}
+	else if((seat == Seat::ECONOMY) && economyIsFull())
+	{
+		cout << "- economy seat is unavailable" << endl;
+		return false;
+	}
+	else
+	{
+		cout << "- seat is available" << endl;
+		return true;
+	}
+}
+
+const int Flight::getCapacity() const
 {
 	return capacity;
 }
 
-Date Flight::getFlightDate() const
+const Date& Flight::getDate() const
 {
 	return date;
 }
 
-PassengerList& Flight::getWaitingList()
+// get the flight number of the flight
+const string& Flight::getFlightNumber() const
 {
-	return waitingList;
+	return flightNumber;
 }
 
-FlightPassengerList& Flight::getFlightPassengerList()
+BookedList* Flight::getBookedList()
 {
-	return flightPassengerList;
+	return &bookedList;
+}
+
+WaitingList* Flight::getWaitingList()
+{
+	return &waitingList;
 }

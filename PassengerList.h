@@ -1,36 +1,32 @@
 /*
  * PassengerList.h
  *
- *  Created on: 20 Nov 2013
+ *  Created on: 26 Nov 2013
  *      Author: tomto
  */
 
 #ifndef PASSENGERLIST_H_
 #define PASSENGERLIST_H_
 
-#include <string>
 #include <vector>
+#include <string>
 #include <iostream>
 
 #include "Passenger.h"
-#include "Seat.h"
 
 using namespace std;
 
-class PassengerList
-{
+class PassengerList {
 public:
-	PassengerList();
-	void add(Passenger& passenger);
-	void remove(string name);
-	bool search(string name);
+	PassengerList(){};
+	void addPassenger(string name);
+	bool removePassenger(string& name);
+	bool searchForPassenger(string& name);
 	Passenger* getPassenger(string name);
+	~PassengerList(){};
 
-protected:
-	vector<Passenger> firstList;
-	vector<Passenger> economyList;
-	bool removePassengerFromList(string name, vector<Passenger>& list);
-	bool searchPassengerList(string name, vector<Passenger>& list);
-	Passenger* getPassengerFromList(string name, vector<Passenger>& list);
+private:
+	vector<Passenger*> passengerList;
 };
+
 #endif /* PASSENGERLIST_H_ */

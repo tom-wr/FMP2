@@ -1,24 +1,38 @@
 #include "Passenger.h"
 
-
-Passenger::Passenger(string _name, Seat::Type _seat, string _flightNums)
+Passenger::Passenger(string _name)
+: name(_name)
 {
-	name = _name;
-	seat = _seat;
-	flightNums = _flightNums;
 }
 
-string Passenger::getFlightNumbers() const
+void Passenger::addBooking(Booking& booking)
 {
-	return flightNums;
+	cout << "ADDBOOKING: " << booking.getSeatType() << endl;
+	Booking* bookingPtr = new Booking(booking);
+	bookings.insert(pair<string, Booking*>(booking.getFlightNumber(), bookingPtr));
+	string flightNumber = "ABC123";
+	Booking *found = getBookingByFlightNumber(flightNumber);
+	cout << "ADDBOOKING: " << found->getSeatType() << endl;
 }
 
-Seat::Type Passenger::getSeat() const
+void Passenger::addBooking(string& flightNumber, Seat::Type seat, BookingStatus::Type status)
 {
-	return seat;
+	Booking booking(flightNumber, seat, status);
+	bookings.insert(pair<string, Booking*>(booking.getFlightNumber(), &booking));
+}
+
+map<string, Booking*>* Passenger::getBookings()
+{
+	return &bookings;
 }
 
 string Passenger::getName() const
 {
 	return name;
+}
+
+Booking* Passenger::getBookingByFlightNumber(string& flightNumber)
+{
+	map<string, Booking*>::iterator it = bookings.find(flightNumber);
+	return it->second;
 }

@@ -1,33 +1,42 @@
+/*
+ * Flight.h
+ *
+ *  Created on: 28 Nov 2013
+ *      Author: tomto
+ */
+
 #ifndef FLIGHT_H_
 #define FLIGHT_H_
 
 #include <string>
+#include <vector>
+
+#include "WaitingList.h"
+#include "BookedList.h"
 #include "Date.h"
-#include "FlightPassengerList.h"
-#include "PassengerList.h"
 
 using namespace std;
 
-class Flight
-{
+class Flight {
 public:
-
-
-	Flight(string flightNumber, int capacity, Date& date);
-
-	void addPassenger(Passenger& passenger);
-	string getFlightNumber() const;
-	int getFlightCapacity() const;
-	Date getFlightDate() const;
-
-	PassengerList& getWaitingList();
-	FlightPassengerList& getFlightPassengerList();
+	Flight(string& _flightNumber, const int _capacity, Date& _date);
+	void addPassengerToBookedList(Passenger* passenger, const Seat::Type seat);
+	void addPassengerToWaitingList(Passenger* passenger, const Seat::Type seat);
+	const string& getFlightNumber() const;
+	const int getCapacity() const;
+	const Date& getDate() const;
+	WaitingList* getWaitingList();
+	BookedList* getBookedList();
+	bool firstIsFull();
+	bool economyIsFull();
+	bool checkSeatIsAvailable(Seat::Type seat);
 
 private:
 	string flightNumber;
-	int capacity;
+	const int capacity;
 	Date date;
-	FlightPassengerList flightPassengerList;
-	PassengerList waitingList;
+
+	WaitingList waitingList;
+	BookedList bookedList;
 };
-#endif
+#endif /* FLIGHT_H_ */

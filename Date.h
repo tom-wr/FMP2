@@ -13,6 +13,7 @@ class Date
 public:
 
 	Date(const int& time, const int& day, const int& month, const int& year);
+	Date();
 
 	int getYear() const;
 	int getMonth() const;

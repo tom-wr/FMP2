@@ -1,12 +1,15 @@
 #include "Date.h"
 
 Date::Date(const int& _time, const int& _day, const int& _month, const int& _year)
+: time(_time), day(_day), month(_month), year(_year)
 {
-	year = _year;
-	month = _month;
-	day = _day;
-	time = _time;
 }
+
+Date::Date() : year(0), month(0), day(0), time(0)
+{
+
+}
+
 
 int Date::getYear() const
 {
