@@ -9,8 +9,6 @@
 #define SEAT_H_
 
 namespace Seat{
-
-
 	enum Type
 	{
 		FIRST,
