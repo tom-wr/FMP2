@@ -9,6 +9,7 @@
 #define BOOKING_H_
 
 #include <string>
+#include <iostream>
 #include "Seat.h"
 #include "BookingStatus.h"
 
@@ -24,6 +25,7 @@ public:
 	BookingStatus::Type getStatus() const;
 	void setStatus(BookingStatus::Type);
 	string getFlightNumber() const;
+	~Booking();
 
 
 private:

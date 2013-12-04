@@ -10,6 +10,7 @@
 
 #include <string>
 #include <vector>
+#include <iostream>
 
 #include "WaitingList.h"
 #include "BookedList.h"
@@ -22,18 +23,20 @@ public:
 	Flight(string& _flightNumber, const int _capacity, Date& _date);
 	void addPassengerToBookedList(Passenger* passenger, const Seat::Type seat);
 	void addPassengerToWaitingList(Passenger* passenger, const Seat::Type seat);
+	void removePassenger(string& name);
+	bool checkSeatIsAvailable(Seat::Type seat);
+	bool searchForPassenger(string& passengerName);
+
 	const string& getFlightNumber() const;
 	const int getCapacity() const;
 	const Date& getDate() const;
 	WaitingList* getWaitingList();
 	BookedList* getBookedList();
-	bool firstIsFull();
-	bool economyIsFull();
-	bool checkSeatIsAvailable(Seat::Type seat);
-    void setFlightNumber(string _flightNumber);
-    void setFlightCapacity(const int _capacity);
-    //void setFlightTime(times);
-    void setFlightDate(Date& _date);
+
+	 void setFlightNumber(string _flightNumber);
+	 void setFlightCapacity(const int _capacity);
+	 //void setFlightTime(times);
+	 void setFlightDate(Date& _date);
 
 private:
 	string flightNumber;
@@ -42,5 +45,8 @@ private:
 
 	WaitingList waitingList;
 	BookedList bookedList;
+
+	bool firstIsFull();
+	bool economyIsFull();
 };
 #endif /* FLIGHT_H_ */

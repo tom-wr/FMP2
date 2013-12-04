@@ -21,13 +21,36 @@ void WaitingList::addPassengerToEconomy(Passenger* passenger)
 // Remove passenger from the economy or first class list
 void WaitingList::removePassenger(string name)
 {
-	if(!removePassengerFromList(name, economyList))
-		removePassengerFromList(name, firstList);
+	cout << "This list is removing a passenger now!" << endl;
+	if(!removePassengerFromList(name, firstList))
+		removePassengerFromList(name, economyList);
 }
 
-bool WaitingList::removePassengerFromList(string name, vector<Passenger*>& list)
+Passenger* WaitingList::popFirstClassWaiting()
 {
-	for(vector<Passenger*>::iterator it = list.begin(); it != list.end(); ++it)
+	if(!firstList.empty())
+	{
+		Passenger* frontPassenger = firstList.front();
+		firstList.pop_front();
+		return frontPassenger;
+	}
+	return NULL;
+}
+
+Passenger* WaitingList::popEconomyClassWaiting()
+{
+	if(!economyList.empty())
+	{
+		Passenger* frontPassenger = economyList.front();
+		economyList.pop_front();
+		return frontPassenger;
+	}
+	return NULL;
+}
+
+bool WaitingList::removePassengerFromList(string name, deque<Passenger*>& list)
+{
+	for(deque<Passenger*>::iterator it = list.begin(); it != list.end(); ++it)
 	{
 		if((*it)->getName() == name)
 		{
@@ -40,16 +63,16 @@ bool WaitingList::removePassengerFromList(string name, vector<Passenger*>& list)
 }
 
 
-bool WaitingList::searchForPassenger(string name)
+bool WaitingList::searchForPassenger(string& name)
 {
 	if(searchPassengerList(name, economyList))
 		return true;
 	else return searchPassengerList(name, firstList);
 }
 
-bool WaitingList::searchPassengerList(string name, vector<Passenger*>& list)
+bool WaitingList::searchPassengerList(string name, deque<Passenger*>& list)
 {
-	for(vector<Passenger*>::iterator it = list.begin(); it != list.end(); ++it)
+	for(deque<Passenger*>::iterator it = list.begin(); it != list.end(); ++it)
 	{
 		if((*it)->getName() == name)
 		{
@@ -73,9 +96,9 @@ Passenger* WaitingList::getPassenger(string& name)
 	return NULL;
 }
 
-Passenger* WaitingList::getPassengerFromList(string& name, vector<Passenger*>& list)
+Passenger* WaitingList::getPassengerFromList(string& name, deque<Passenger*>& list)
 {
-	for(vector<Passenger*>::iterator it = list.begin(); it != list.end(); ++it)
+	for(deque<Passenger*>::iterator it = list.begin(); it != list.end(); ++it)
 	{
 		if((*it)->getName() == name)
 		{
@@ -85,12 +108,12 @@ Passenger* WaitingList::getPassengerFromList(string& name, vector<Passenger*>& l
 	return NULL;
 }
 
-const vector<Passenger*>& WaitingList::getFirstClassList()const
+const deque<Passenger*>& WaitingList::getFirstClassList()const
 {
 	return firstList;
 }
 
-const vector<Passenger*>& WaitingList::getEconomyClassList()const
+const deque<Passenger*>& WaitingList::getEconomyClassList()const
 {
 	return economyList;
 }

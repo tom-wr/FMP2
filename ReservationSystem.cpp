@@ -9,33 +9,26 @@ void ReservationSystem::makeReservation(string passengerName)
 {
 	// get user input holder
 	/**/ Seat::Type seat = Seat::FIRST;
-	//
-
-	//string passengerName("Jim");
 	string flightNumber("ABC123");
 
 	Booking booking(flightNumber, seat, BookingStatus::NONE);
 	Flight *flight = flightList.getFlight(flightNumber);
-	cout << "About to check if flight exists" << endl;
 	if(flight)
 	{
-		cout << "flight exists" << endl;
 		Passenger *passenger = findOrCreatePassenger(passengerName);
-		bookSeat(passenger, booking, flight);
+		if( !checkDoubleBooking(passenger , flightNumber) )
+		{
+			bookSeat(passenger, booking, flight);
+		}
 	}
 	else
-	{
 		cout << "Flight does not exist!" << endl;
-	}
-	cout << "end of function" << endl;
 }
 
 Passenger* ReservationSystem::createPassenger(string& name)
 {
-	cout << "creating passenger " << name << endl;
 	passengerList.addPassenger(name);
 	Passenger *foundPassenger = passengerList.getPassenger(name);
-	cout << "got passenger " << foundPassenger->getName() << endl;
 	return foundPassenger;
 }
 
@@ -44,15 +37,15 @@ Passenger* ReservationSystem::findOrCreatePassenger(string& passengerName)
 	Passenger *passenger = passengerList.getPassenger(passengerName);
 	if(!passenger)
 	{
-		cout << "passenger does not exist creating fresh." << endl;
 		passenger = createPassenger(passengerName);
 	}
-	cout << "passenger " << passenger->getName()  << " checked/created" << endl;
 	return passenger;
 }
 
 void ReservationSystem::bookSeat(Passenger* passenger, Booking& booking, Flight* flight)
 {
+	cout << passenger->getName() << endl;
+	cout << flight->getCapacity() << endl;
 	Seat::Type seat = booking.getSeatType();
 	if(flight->checkSeatIsAvailable(seat))
 	{
@@ -66,11 +59,8 @@ void ReservationSystem::bookSeat(Passenger* passenger, Booking& booking, Flight*
 		// if first class seat requested ask to change class if economy is available
 		if(seat == Seat::FIRST && flight->checkSeatIsAvailable(Seat::ECONOMY))
 		{
-			string answer;
-			cout << "First class full. Change to Economy?";
-			cin >> answer;
-
-			if(answer == "yes")
+			string question("First class is fully booked. Would the passenger like to fly economy instead?");
+			if(UI::inputYesNo(question))
 			{
 				booking.setSeatType(Seat::ECONOMY);
 				bookPassengerOnFlight(passenger, booking, flight);
@@ -80,10 +70,8 @@ void ReservationSystem::bookSeat(Passenger* passenger, Booking& booking, Flight*
 				queuePassengerOnFlight(passenger, booking, flight);
 			}
 		}
-
 		else
 		{
-			cout << "adding to waiting list" << endl;
 			queuePassengerOnFlight(passenger, booking, flight);
 		}
 	}
@@ -101,4 +89,42 @@ void ReservationSystem::queuePassengerOnFlight(Passenger* passenger, Booking& bo
 	booking.setStatus(BookingStatus::WAITING);
 	passenger->addBooking(booking);
 	flight->addPassengerToWaitingList(passenger, booking.getSeatType());
+}
+
+bool ReservationSystem::dateIsValid(Passenger* passenger, Date& date)
+{
+	map<string, Booking*> *bookings = passenger->getBookings();
+	map<string, Booking*>::iterator it;
+	for(it = (*bookings).begin(); it != (*bookings).end(); ++it)
+	{
+		cout << it->first << endl;
+	}
+	return true;
+}
+
+bool ReservationSystem::checkDoubleBooking(Passenger* passenger, string& flightNumber)
+{
+	Booking *booking = passenger->getBookingByFlightNumber(flightNumber);
+	if(booking != NULL)
+	{
+		cout << "!!!\tPassenger already booked on flight. Double booking not allowed." << endl;
+		return true;
+	}
+	else
+	{
+		if(checkDateOverlap())
+		{
+			cout << "!!!\tPassenger already booked on flight within 24 hours." << endl;
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+}
+
+bool ReservationSystem::checkDateOverlap()
+{
+	return false;
 }

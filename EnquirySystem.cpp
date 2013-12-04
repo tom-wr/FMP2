@@ -14,10 +14,10 @@ void EnquirySystem::enquireFlightInformation(string& flightNumber)
 	{
 		BookedList* bookedList = flight->getBookedList();
 		WaitingList* waitingList = flight->getWaitingList();
-		vector<Passenger*> bookedFirst = bookedList->getFirstClassList();
-		vector<Passenger*> bookedEconomy = bookedList->getEconomyClassList();
-		vector<Passenger*> waitingFirst = waitingList->getFirstClassList();
-		vector<Passenger*> waitingEconomy = waitingList->getEconomyClassList();
+		deque<Passenger*> bookedFirst = bookedList->getFirstClassList();
+		deque<Passenger*> bookedEconomy = bookedList->getEconomyClassList();
+		deque<Passenger*> waitingFirst = waitingList->getFirstClassList();
+		deque<Passenger*> waitingEconomy = waitingList->getEconomyClassList();
 
 		cout << endl;
 		cout << "FLIGHT " << flightNumber << endl;
@@ -34,14 +34,18 @@ void EnquirySystem::enquireFlightInformation(string& flightNumber)
 		cout << "WAITING ECONOMY CLASS" << endl;
 		enquireFlightPassengers(waitingEconomy);
 	}
+	cout << "finished enquiring!" <<endl;
 }
 
-void EnquirySystem::enquireFlightPassengers(vector<Passenger*> list)
+void EnquirySystem::enquireFlightPassengers(deque<Passenger*> list)
 {
-	vector<Passenger*>::iterator it;
-	for(it = list.begin(); it != list.end(); ++it)
+	if(!list.empty())
 	{
-		cout << (*it)->getName() << endl;
+		deque<Passenger*>::iterator it;
+		for(it = list.begin(); it != list.end(); ++it)
+		{
+			cout << (*it)->getName() << endl;
+		}
 	}
 }
 

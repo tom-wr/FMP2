@@ -16,6 +16,7 @@ bool PassengerList::removePassenger(string& name)
 		if( (*it)->getName() == name)
 		{
 			cout << name << " is being removed." << endl;
+			delete (*it);
 			passengerList.erase(it);
 			return true;
 		}

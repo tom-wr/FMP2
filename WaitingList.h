@@ -9,7 +9,7 @@
 #define WAITINGLIST_H_
 
 #include <string>
-#include <vector>
+#include <deque>
 #include <iostream>
 
 #include "Passenger.h"
@@ -22,18 +22,20 @@ public:
 	void addPassengerToFirst(Passenger* passenger);
 	void addPassengerToEconomy(Passenger* passenger);
 	Passenger* getPassenger(string& name);
-	const vector<Passenger*>& getFirstClassList()const;
-	const vector<Passenger*>& getEconomyClassList()const;
+	const deque<Passenger*>& getFirstClassList()const;
+	const deque<Passenger*>& getEconomyClassList()const;
 	virtual void removePassenger(string name);
-	virtual bool searchForPassenger(string name);
+	virtual bool searchForPassenger(string& name);
+	virtual Passenger* popFirstClassWaiting();
+	virtual Passenger* popEconomyClassWaiting();
 	virtual ~WaitingList(){};
 
 protected:
-	vector<Passenger*> firstList;
-	vector<Passenger*> economyList;
-	Passenger* getPassengerFromList(string& name, vector<Passenger*>& list);
-	bool removePassengerFromList(string name, vector<Passenger*>& list);
-	bool searchPassengerList(string name, vector<Passenger*>& list);
+	deque<Passenger*> firstList;
+	deque<Passenger*> economyList;
+	Passenger* getPassengerFromList(string& name, deque<Passenger*>& list);
+	bool removePassengerFromList(string name, deque<Passenger*>& list);
+	bool searchPassengerList(string name, deque<Passenger*>& list);
 };
 
 

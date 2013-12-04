@@ -5,6 +5,11 @@ Booking::Booking(string _flightNumber, Seat::Type _seat, BookingStatus::Type _st
 {
 }
 
+Booking::~Booking()
+{
+	cout << "DEATH TO BOOKINGS!" << endl;
+}
+
 Booking::Booking(string _flightNumber, Seat::Type _seat)
 : flightNumber(_flightNumber), seat(_seat), status(BookingStatus::NONE)
 {

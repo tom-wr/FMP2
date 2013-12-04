@@ -33,13 +33,28 @@ void Flight::addPassengerToWaitingList(Passenger* passenger, const Seat::Type se
 	}
 }
 
+void Flight::removePassenger(string& name)
+{
+	if(bookedList.searchForPassenger(name))
+	{
+		cout << "Removing passenger from booked list" << endl;
+		bookedList.removePassenger(name);
+	}
+	else if(waitingList.searchForPassenger(name))
+	{
+		cout << "Removing passenger from waiting list" << endl;
+		waitingList.removePassenger(name);
+	}
+	else
+	{
+		cout << "Passenger does not exist" << endl;
+	}
+}
+
 bool Flight::firstIsFull()
 {
-	cout << "-- checking first is full" << endl;
 	int capacity = bookedList.getFirstCapacity();
 	int size = bookedList.getFirstSize();
-	cout << "-- size is " << size << endl;
-	cout << "-- capacity is " << capacity << endl;;
 
 	if(size < capacity)
 		return false;
@@ -49,11 +64,8 @@ bool Flight::firstIsFull()
 
 bool Flight::economyIsFull()
 {
-	cout << "-- checking economy is full" << endl;
 	int capacity = bookedList.getEconomyCapacity();
 	int size = bookedList.getEconomySize();
-	cout << "-- size is " << size << endl;
-	cout << "-- capacity is " << capacity << endl;;
 	if(size < capacity)
 		return false;
 	else
@@ -78,6 +90,12 @@ bool Flight::checkSeatIsAvailable(Seat::Type seat)
 		cout << "- seat is available" << endl;
 		return true;
 	}
+}
+
+bool Flight::searchForPassenger(string& passengerName)
+{
+	waitingList.searchForPassenger(passengerName);
+	return false;
 }
 
 const int Flight::getCapacity() const
