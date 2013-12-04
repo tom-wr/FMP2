@@ -12,10 +12,12 @@
 
 #include "Flight.h"
 #include "FlightList.h"
+#include "Date.h"
 
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <stdlib.h>
 
 using namespace std;
 class Reader {
@@ -25,12 +27,18 @@ public:
 			string line;
 			//vector <FlightList> fl;
 			Flight flight;
+            Date _date;
 	        string flightNumber;
-	        int capacity;
+            string capacity;
+            int theCapacity;
 	        string times;
+            int theTimes;
 	        string date;
+            int theDate;
 	        FlightList fl;
-	void readInFile();
+	        void readInFile();
+            int atoi(string varName);
+    
 private:
 };
 #endif /* READER_H_ */

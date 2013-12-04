@@ -30,6 +30,10 @@ public:
 	bool firstIsFull();
 	bool economyIsFull();
 	bool checkSeatIsAvailable(Seat::Type seat);
+    void setFlightNumber(string _flightNumber);
+    void setFlightCapacity(const int _capacity);
+    //void setFlightTime(times);
+    void setFlightDate(Date& _date);
 
 private:
 	string flightNumber;

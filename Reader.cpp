@@ -22,9 +22,11 @@
 							file >> flightNumber >> capacity >>times >> date;
 
 							flight.setFlightNumber(flightNumber);
-							flight.setFlightCapacity(capacity);
-							flight.setFlightTime(times);
-							flight.setFlightDate(date);
+                            theCapacity = atoi(capacity);
+                            flight.setFlightCapacity(theCapacity);
+                            theTimes = atoi(times);
+							_date.setTime(theTimes);
+							flight.setFlightDate(_date);
 							fl.addFlight(flight);
 						}
 					}
