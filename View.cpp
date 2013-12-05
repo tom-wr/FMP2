@@ -15,24 +15,23 @@ View::View() {
 
 void View :: printmenu(){
 
-		std::cout<< "************************************************************"<< std::endl<< std::endl;
-	    std::cout<< "******************************************************** "<< std::endl<< std::endl;
-	    std::cout<< "***************** THIS IS YOUR MENU*********"<< std::endl<< std::endl;
-	    std::cout<< "*************************************"<< std::endl<< std::endl;
-
-	    std::cout<<" Main MENU"<<std::endl<<std::endl;
-	    std::cout << "1. Reservation             ----- Reserve <name> <status> <flightNO>" << std::endl<< std::endl;
-	    std::cout << "2. Cancellation            ----- Cancel <Passengername>" << std::endl<< std::endl;
-	    std::cout << "3. Print Flight List       ----- Display F"<< std::endl<< std::endl;
-	    std::cout << "4. Print Passenger List    ----- Display P <flight Number>" << std::endl<< std::endl;
-	    std::cout << "5. Help                    ----- Help " << std::endl<< std::endl;
-	    std::cout << "6. Quit                    ----- Quit" << std::endl<< std::endl;
-
-	    std::cout<< "***********************************************"<< std::endl<< std::endl;
-	    std::cout<< "*************************************************************** "<< std::endl<< std::endl;
-	    std::cout<< "*********************************************************************"<< std::endl<< std::endl;
-	    std::cout<< "****************************************************************************"<< std::endl<< std::endl;
-
+    std::cout<< "************************************************************"<< endl;
+    std::cout<< "******************************************************** "<< endl;
+    std::cout<< "***************** THIS IS YOUR MENU*********"<< endl;
+    std::cout<< "*************************************"<< endl;
+    
+    std::cout<<" Main MENU" << endl;
+    std::cout << "1. Reservation             ----- *********************" << endl;
+    std::cout << "2. Cancellation            ----- *********************" << endl;
+    std::cout << "3. Print Flight List       ----- *********************"<< endl;
+    std::cout << "4. Print Passenger List    ----- *********************" << endl;
+    std::cout << "5. Help                    ----- ********************* " << endl;
+    std::cout << "6. Quit                    ----- *********************" <<endl;
+    
+    cout<< "***********************************************"<< endl;
+    cout<< "*************************************************************** "<< endl;
+    cout<< "*********************************************************************"<< endl;
+    cout<< "****************************************************************************"<<endl;
 
 }
 void View ::displayError(string& str){
