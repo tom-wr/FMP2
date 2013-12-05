@@ -49,18 +49,33 @@ void View ::displayView(string& str){
 void View ::displayIntructions(char& str){
 	if(str == "R"){
         // display reservation instructions
+		cout <<"[1] -- Enter : <Passengername>"<< endl;
+		cout <<"[2] -- Enter : <Passenger Lastname>"<< endl;
+		cout <<"[3] -- Enter : <Seat>"<< endl;
 	}
     if(str =="C"){
-		cout <<"Please Enter :"+ str << endl;
+		cout <<"[1] --- Enter : <Passengername>" << endl;
+		cout <<"[2] --- Enter : <Flight Number>" << endl;
 	}
-    if (str == "D"){
+    
+	if(str =="P"){
+		cout <<"[1] --- Enter : <Flight Number>" <<endl;
         
 	}
-    if(str == "F"){
-        
-	}if(str =="P"){
-        
-	}if (str=="Q"){
-		cout <<"---------------- GOODBYE---------- :" << endl;
-	}
+    
+    
 }
+void View ::displayHeads(char& str){
+    if (str == "H"){
+        cout << "-----Displaying Help----"<<endl;
+        cout << "---------"<<endl;
+    }
+    if(str == "F"){
+        cout << "-----Displaying the List of Flights----"<<endl;
+        cout << "---------"<<endl;
+    }
+    if (str=="Q"){
+        cout <<"---------------- GOODBYE---------- :" << endl;
+    }
+}
+

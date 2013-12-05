@@ -21,6 +21,7 @@ public:
 	void displayError(string& str);
 	void displayView(string& str);
   void displayIntructions(char& str);
+    void displayHeads(char& str);
 };
 
 #endif /* VIEW_H_ */
