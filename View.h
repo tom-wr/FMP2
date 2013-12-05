@@ -20,7 +20,7 @@ public:
 	void printmenu();
 	void displayError(string& str);
 	void displayView(string& str);
-
+  void displayIntructions(char& str);
 };
 
 #endif /* VIEW_H_ */

@@ -36,11 +36,31 @@ void View :: printmenu(){
 
 }
 void View ::displayError(string& str){
-	cout <<"Please :"+ str << endl;
+	cout << str  +" is not valid  Please REnter:"+ str << endl;
 }
 
 
 
+
 void View ::displayView(string& str){
-	cout <<"Please :"+ str << endl;
+	cout <<"Please Enter :"+ str << endl;
+}
+
+void View ::displayIntructions(char& str){
+	if(str == "R"){
+        // display reservation instructions
+	}
+    if(str =="C"){
+		cout <<"Please Enter :"+ str << endl;
+	}
+    if (str == "D"){
+        
+	}
+    if(str == "F"){
+        
+	}if(str =="P"){
+        
+	}if (str=="Q"){
+		cout <<"---------------- GOODBYE---------- :" << endl;
+	}
 }
