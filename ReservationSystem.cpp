@@ -5,18 +5,22 @@ ReservationSystem::ReservationSystem(FlightList& _flightList, PassengerList& _pa
 {
 }
 
-void ReservationSystem::makeReservation(string passengerName)
+void ReservationSystem::makeReservation()
 {
 	// get user input holder
 	/**/ Seat::Type seat = Seat::FIRST;
-	string flightNumber("ABC123");
+	UI::outputAskPassengerName();
+	string passengerName = UI::inputName();
+	UI::outputAskFlightNumber();
+	string flightNumber = UI::inputFlightNumber();
 
 	Booking booking(flightNumber, seat, BookingStatus::NONE);
 	Flight *flight = flightList.getFlight(flightNumber);
 	if(flight)
 	{
+		cout << "Flight exists" << endl;
 		Passenger *passenger = findOrCreatePassenger(passengerName);
-		if( !checkDoubleBooking(passenger , flightNumber) )
+		if( !isDoubleBooking(passenger , flightNumber) && !isDateClash(passenger, flight->getDate()) )
 		{
 			bookSeat(passenger, booking, flight);
 		}
@@ -91,40 +95,64 @@ void ReservationSystem::queuePassengerOnFlight(Passenger* passenger, Booking& bo
 	flight->addPassengerToWaitingList(passenger, booking.getSeatType());
 }
 
+bool ReservationSystem::checkSameNumber(const int& i, const int& j)
+{
+	if(i == j)
+		return true;
+	else
+		return false;
+}
+
+bool ReservationSystem::dateIsDifferent(Date& date, Date& bookedDate)
+{
+	if(		checkSameNumber(date.getYear(), bookedDate.getYear())
+		&& 	checkSameNumber(date.getMonth(), bookedDate.getMonth())
+		&& 	checkSameNumber(date.getDay(), bookedDate.getDay()) )
+	{
+		cout << "date same" << endl;
+		return false;
+	}
+	else if( abs(date.getDay()-bookedDate.getDay()) == 1)
+	{
+		//checkTimeDifference(date.getTime(), bookedDate.getTime());
+	}
+	cout << "date different" << endl;
+	return true;
+}
+
 bool ReservationSystem::dateIsValid(Passenger* passenger, Date& date)
 {
 	map<string, Booking*> *bookings = passenger->getBookings();
 	map<string, Booking*>::iterator it;
 	for(it = (*bookings).begin(); it != (*bookings).end(); ++it)
 	{
-		cout << it->first << endl;
+		string flightNumber = it->first;
+		Date bookedDate = flightList.getFlight(flightNumber)->getDate();
+		if(!dateIsDifferent(date, bookedDate))
+			return false;
 	}
 	return true;
 }
 
-bool ReservationSystem::checkDoubleBooking(Passenger* passenger, string& flightNumber)
+bool ReservationSystem::isDoubleBooking(Passenger* passenger, string& flightNumber)
 {
 	Booking *booking = passenger->getBookingByFlightNumber(flightNumber);
-	if(booking != NULL)
+	if(booking)
 	{
 		cout << "!!!\tPassenger already booked on flight. Double booking not allowed." << endl;
 		return true;
 	}
 	else
-	{
-		if(checkDateOverlap())
-		{
-			cout << "!!!\tPassenger already booked on flight within 24 hours." << endl;
-			return true;
-		}
-		else
-		{
-			return false;
-		}
-	}
+		return false;
 }
 
-bool ReservationSystem::checkDateOverlap()
+bool ReservationSystem::isDateClash(Passenger* passenger, Date& date)
 {
-	return false;
+	if(!dateIsValid(passenger, date))
+	{
+		cout << "!!!\tDate is cannot be on same day as another booked flight." << endl;
+		return true;
+	}
+	else
+		return false;
 }

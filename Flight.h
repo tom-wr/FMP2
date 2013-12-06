@@ -29,7 +29,7 @@ public:
 
 	const string& getFlightNumber() const;
 	const int getCapacity() const;
-	const Date& getDate() const;
+	Date& getDate();
 	WaitingList* getWaitingList();
 	BookedList* getBookedList();
 

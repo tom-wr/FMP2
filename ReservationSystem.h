@@ -23,7 +23,7 @@ class ReservationSystem
 {
 public:
 	ReservationSystem(FlightList& _flightList, PassengerList& _passengerList);
-	void makeReservation(string passname);
+	void makeReservation();
 	Passenger* createPassenger(string& name);
 	Passenger* findOrCreatePassenger(string& name);
 	void bookSeat(Passenger* passenger, Booking& booking, Flight* flight);
@@ -34,7 +34,9 @@ public:
 	FlightList& flightList;
 	PassengerList& passengerList;
 	bool dateIsValid(Passenger* passenger, Date& date);
-	bool checkDoubleBooking(Passenger* passenger, string& flightNumber);
-	bool checkDateOverlap();
+	bool isDoubleBooking(Passenger* passenger, string& flightNumber);
+	bool isDateClash(Passenger* passenger, Date& date);
+	bool checkSameNumber(const int& i, const int& j);
+	bool dateIsDifferent(Date& date, Date& bookedDate);
 };
 #endif /* RESERVATIONSYSTEM_H_ */

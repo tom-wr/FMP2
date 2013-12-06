@@ -6,8 +6,10 @@ EnquirySystem::EnquirySystem(FlightList& _flightList, PassengerList& _passengerL
 
 }
 
-void EnquirySystem::enquireFlightInformation(string& flightNumber)
+void EnquirySystem::enquireFlightInformation()
 {
+	UI::outputAskFlightNumber();
+	string flightNumber = UI::inputFlightNumber();
 	cout << "enquiring after " << flightNumber << endl;
 	Flight *flight = flightList.getFlight(flightNumber);
 	if(flight)
@@ -49,8 +51,10 @@ void EnquirySystem::enquireFlightPassengers(deque<Passenger*> list)
 	}
 }
 
-void EnquirySystem::enquirePassengerInformation(string& passengerName)
+void EnquirySystem::enquirePassengerInformation()
 {
+	UI::outputAskPassengerName();
+	string passengerName = UI::inputName();
 	Passenger *passenger = passengerList.getPassenger(passengerName);
 	if(passenger)
 	{

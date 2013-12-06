@@ -16,12 +16,13 @@
 #include "PassengerList.h"
 #include "Flight.h"
 #include "Passenger.h"
+#include "UI.h"
 
 class CancellationSystem
 {
 public:
 	CancellationSystem(FlightList& flightList, PassengerList& passengerList);
-	void makeCancellation(string& passengerName, string& flightNumber);
+	void makeCancellation();
 private:
 	FlightList& flightList;
 	PassengerList& passengerList;

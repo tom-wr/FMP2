@@ -7,6 +7,7 @@
  *  */
 
 
+/*
 #include "Reader.h"
 
 Reader::Reader(FlightList& _fl)
@@ -30,15 +31,14 @@ void Reader::readInFile(){
 								string flightNumber, capacity, times, sdate, line;
 								while (!file.eof()){
 										file >> flightNumber >> capacity >>times >> sdate;
-
 										// bool Utils::validateLine(flightNumber, capacity, times)
 										// vector<int> splitDate = Utils::splitDate(sdate)
 										// bool Utils::validateDate(splitDate);
 										//getline(file, line);
 										cout << flightNumber << " " << capacity << " " << times << " " << sdate << endl;
 										//cout << line << endl;
-
-										Date date(1,1,1,1);
+										pair<int, int> timep(11,11);
+										Date date(timep,1,1,1);
 										int icapacity = atoi(capacity.c_str());
 										Flight flight(flightNumber, icapacity, date);
 
@@ -49,7 +49,8 @@ void Reader::readInFile(){
 
 				file.close();
 		}
-/*
+*/
+
 
 #include "Reader.h"
 
@@ -58,10 +59,10 @@ Reader::Reader(FlightList& _flightList)
 {
 }
 
-void Reader::read(string fileName)
+void Reader::read(string& fileName)
 {
 	ifstream file(fileName.c_str());
-
+	cout << "reading file!" << endl;
 	if (file.is_open())
 	{
 		cout<<"file is open" << endl;
@@ -74,7 +75,7 @@ void Reader::read(string fileName)
 			string line;
 			while (!file.eof())
 			{
-				string s_flightNumber, s_capacity, s_time, s_date, buff;
+				string s_flightNumber, s_capacity, s_time, s_date;
 				//getline(file, line);
 				file >> s_flightNumber >> s_capacity >> s_time >> s_date;
 				// print out to test
@@ -85,7 +86,9 @@ void Reader::read(string fileName)
 				//input.validateLine(s_flightNumber, s_capacity, s_timeString, s_dateString);
 				//input.separateDate(dateString);
 				int i_Capacity = atoi(s_capacity.c_str()); // temp convert to integer
-				Date date(1000, 1, 1, 2014);
+				pair<int, int> timep = Utils::splitTimeString(s_time);
+				vector<int> splitDate = Utils::splitDateString(s_date);
+				Date date(timep, splitDate[0], splitDate[1], splitDate[2]);
 
 				Flight flight(s_flightNumber, i_Capacity, date);
 				flightList.addFlight(flight);
@@ -94,4 +97,3 @@ void Reader::read(string fileName)
 		file.close();
 	}
 }
-*/

@@ -5,8 +5,13 @@ CancellationSystem::CancellationSystem(FlightList& _flightList, PassengerList& _
 {
 }
 
-void CancellationSystem::makeCancellation(string& passengerName, string& flightNumber)
+void CancellationSystem::makeCancellation()
 {
+	UI::outputAskPassengerName();
+	string passengerName = UI::inputName();
+	UI::outputAskFlightNumber();
+	string flightNumber = UI::inputFlightNumber();
+
 	cout << "making cancellation" << endl;
 	// Get flight and passenger
 	Flight *flight = flightList.getFlight(flightNumber);
@@ -52,7 +57,8 @@ void CancellationSystem::transferPassengers(Flight* flight, Seat::Type seat)
 		if( (bookedList->getEconomySize() < bookedList->getEconomyCapacity())
 				&& !(waitingList->getEconomyClassList().empty()) )
 		{
-
+			Passenger* nextPassenger = waitingList->popEconomyClassWaiting();
+			waitingList->addPassengerToEconomy(nextPassenger);
 		}
 	}
 }

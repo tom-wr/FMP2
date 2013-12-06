@@ -29,6 +29,22 @@ namespace UI
 			return false;
 	}
 
+	string inputName()
+	{
+		string name;
+		cin >> name;
+		cout << "entered: " << name;
+		return name;
+	}
+
+	string inputFlightNumber()
+	{
+		string flightNumber;
+		cin >> flightNumber;
+		cout << "entered " << flightNumber;
+		return flightNumber;
+	}
+
 	int inputMenuOption()
 	{
 		string answer;

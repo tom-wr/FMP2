@@ -13,6 +13,8 @@
 #include <string>
 #include <iostream>
 #include <stdlib.h>
+#include <vector>
+#include <utility>
 
 using namespace std;
 
@@ -26,6 +28,8 @@ namespace Utils
 	bool checkStringLength(string& str, int min, int max);
 	bool stringIsDigit(string& str);
 	bool stringIsAlpha(string& str);
+	vector<int> splitDateString(string& str);
+	pair<int, int> splitTimeString(string& str);
 }
 
 

@@ -41,14 +41,18 @@ string Passenger::getName() const
 
 Booking* Passenger::getBookingByFlightNumber(string& flightNumber)
 {
+	cout << "- get booking by flight number" << endl;
 	if(!bookings.empty())
 	{
+		cout << "-- bookings is not empty!" << endl;
 		map<string, Booking*>::iterator it = bookings.find(flightNumber);
-		return it->second;
+		if(it != bookings.end())
+		{
+			cout << "-- booking for flight found" << endl;
+			return it->second;
+		}
 	}
-	else
-	{
-		return NULL;
-	}
+	cout << "-- booking for flight not found" << endl;
+	return NULL;
 
 }

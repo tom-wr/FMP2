@@ -8,25 +8,23 @@
 #ifndef DATE_H_
 #define DATE_H_
 
+#include <utility>
+
+using namespace std;
+
 class Date
 {
 public:
 
-	Date(const int& time, const int& day, const int& month, const int& year);
-	Date();
+	Date(pair<int, int>& time, const int& day, const int& month, const int& year);
 
 	int getYear() const;
 	int getMonth() const;
 	int getDay() const;
-	int getTime() const;
-
-	void setDay(int day);
-	void setMonth(int month);
-	void setTime(int time);
-	void setYear(int year);
+	pair<int, int> getTime() const;
 
 private:
-	int time;
+	pair<int, int> time;
 	int day;
 	int month;
 	int year;

@@ -95,6 +95,31 @@ namespace Utils
 		return true;
 	}
 
+	vector<int> splitDateString(string& str)
+	{
+		vector<int> date;
+		string day = str.substr(0,2);
+		string month = str.substr(2,2);
+		string year = str.substr(4,4);
+		cout << day << " " << month << " " << year << endl;
+		date.push_back(atoi(day.c_str()));
+		date.push_back(atoi(month.c_str()));
+		date.push_back(atoi(year.c_str()));
+
+		return date;
+	}
+
+	pair<int, int> splitTimeString(string& str)
+	{
+		pair<int, int> timePair;
+		string hours = str.substr(0,2);
+		string minutes = str.substr(2,2);
+		cout << hours << ":" << minutes << endl;
+		timePair.first = atoi(hours.c_str());
+		timePair.second = atoi(minutes.c_str());
+		return timePair;
+	}
+
 }
 
 

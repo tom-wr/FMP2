@@ -103,7 +103,7 @@ const int Flight::getCapacity() const
 	return capacity;
 }
 
-const Date& Flight::getDate() const
+Date& Flight::getDate()
 {
 	return date;
 }

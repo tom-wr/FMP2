@@ -18,6 +18,7 @@
 #include "Passenger.h"
 #include "BookedList.h"
 #include "WaitingList.h"
+#include "UI.h"
 
 using namespace std;
 
@@ -26,8 +27,8 @@ class EnquirySystem
 public:
 
 	EnquirySystem(FlightList& flightList, PassengerList& passengerList);
-	void enquireFlightInformation(string& flightNumber);
-	void enquirePassengerInformation(string& passengerJim);
+	void enquireFlightInformation();
+	void enquirePassengerInformation();
 private:
 	FlightList& flightList;
 	PassengerList& passengerList;

@@ -3,7 +3,12 @@
 Flight* FlightList::getFlight(string& flightNumber)
 {
 	map<string, Flight*>::iterator it = flightList.find(flightNumber);
-	return it->second;
+	if(it != flightList.end())
+	{
+		return it->second;
+	}
+	else
+		return NULL;
 }
 
 void FlightList::addFlight(Flight& flight)
