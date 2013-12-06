@@ -7,74 +7,87 @@
 
 #include "View.h"
 
-
-View::View() {
-	// TODO Auto-generated constructor stub
-
-}
-
-void View :: printmenu(){
-
-    std::cout<< "************************************************************"<< endl;
-    std::cout<< "******************************************************** "<< endl;
-    std::cout<< "***************** THIS IS YOUR MENU*********"<< endl;
-    std::cout<< "*************************************"<< endl;
+namespace veiw {
     
-    std::cout<<" Main MENU" << endl;
-    std::cout << "1. Reservation             ----- *********************" << endl;
-    std::cout << "2. Cancellation            ----- *********************" << endl;
-    std::cout << "3. Print Flight List       ----- *********************"<< endl;
-    std::cout << "4. Print Passenger List    ----- *********************" << endl;
-    std::cout << "5. Help                    ----- ********************* " << endl;
-    std::cout << "6. Quit                    ----- *********************" <<endl;
+	void printmenu(){
+        
+        cout<< "*****************************************************"<< endl<< endl;
+        cout<< "**********************MAIN MENU *********************" << endl;
+        cout << "\t* 1. Reservation             *********************" << endl;
+        cout << "\t* 2. Cancellation            *********************" << endl;
+        cout << "\t* 3. Flight Inquiry          *********************"<< endl;
+        cout << "\t* 4. Passenger Inquiry       *********************" << endl;
+        cout << "\t* 5. Help                    ********************* " << endl;
+        cout << "\t* 6. Quit                    *********************" <<endl;
+        cout << "Please enter your menu choice [1-6]:" << endl;
+        cout<< "*****************************************************"<< endl;
+        
+        
+	}
+	void displayError(string& str){
+        cout << str  +" is not valid  Please REnter:"+ str << endl;
+	}
     
-    cout<< "***********************************************"<< endl;
-    cout<< "*************************************************************** "<< endl;
-    cout<< "*********************************************************************"<< endl;
-    cout<< "****************************************************************************"<<endl;
-
-}
-void View ::displayError(string& str){
-	cout << str  +" is not valid  Please REnter:"+ str << endl;
-}
-
-
-
-
-void View ::displayView(string& str){
-	cout <<"Please Enter :"+ str << endl;
-}
-
-void View ::displayIntructions(char& str){
-	if(str == "R"){
-        // display reservation instructions
+    
+	void displayQuestion(string& str){
+        cout <<"Please Enter :"+ str << endl;
+	}
+    
+	void displayHeLPIntructions(){
+        
+	    cout <<" RESERVATION "<<endl;
 		cout <<"[1] -- Enter : <Passengername>"<< endl;
 		cout <<"[2] -- Enter : <Passenger Lastname>"<< endl;
 		cout <<"[3] -- Enter : <Seat>"<< endl;
-	}
-    if(str =="C"){
+        
+		cout <<"Cancellation"<<endl;
 		cout <<"[1] --- Enter : <Passengername>" << endl;
 		cout <<"[2] --- Enter : <Flight Number>" << endl;
-	}
-    
-	if(str =="P"){
+        
+        
+		cout <<"PASSENGER ENQUIRY"<<endl;
 		cout <<"[1] --- Enter : <Flight Number>" <<endl;
         
 	}
     
     
+    
+	void displayFlightHeads(){
+        
+        cout << "\t*********Displaying the List of Flights*****"<<endl;
+        cout << "\t Flight Number \t Capacity \t Time  \t Date-"<<endl;
+    }
+	
+	void displayPassengerHeads(string& str){
+        
+        cout << "\t*********List of Passengers on Flight"+ str +" ****"<< endl;
+        cout << "\tFirstName \t LastName"<<endl;
+    }
+	
+	void displayByeMessage(){
+        
+        cout <<""<< endl;
+        cout <<"\t***********************************"<< endl;
+        cout <<"\t************** GOODBYE************* " << endl;
+        cout <<"\t***********************************"<< endl;
+    }
+	void FlightReserved(string& str){
+        
+		cout << "Passenger Has Been Reserved on the Flight"<< endl;
+	}
+	void FLightNotReserved(string& str){
+        
+        cout<<"Flight with seat preference"+str+" Full"<<endl;
+        cout<<"FLight Not Reserved Add to waitingList? "<<endl;
+    }
+	void WaitingList(){
+        cout<<"Passenger Has Been Added to waiting List"<< endl;
+	}
+	void CancelPassenger(string str){
+        cout<<"Passenger"+str+" Has Been removed from flight"<< endl;
+        cout<<" Waiting List has been updated "<<endl;
+    }
 }
-void View ::displayHeads(char& str){
-    if (str == "H"){
-        cout << "-----Displaying Help----"<<endl;
-        cout << "---------"<<endl;
-    }
-    if(str == "F"){
-        cout << "-----Displaying the List of Flights----"<<endl;
-        cout << "---------"<<endl;
-    }
-    if (str=="Q"){
-        cout <<"---------------- GOODBYE---------- :" << endl;
-    }
-}
+
+
 
