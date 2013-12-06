@@ -9,6 +9,7 @@
 #define BOOKEDLIST_H_
 
 #include "WaitingList.h"
+#include <math.h>
 
 class BookedList : public WaitingList {
 public:

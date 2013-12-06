@@ -20,7 +20,7 @@ using namespace std;
 
 class Flight {
 public:
-	Flight(string& _flightNumber, const int _capacity, Date& _date);
+	Flight(string& _flightNumber, int _capacity, Date& _date);
 	void addPassengerToBookedList(Passenger* passenger, const Seat::Type seat);
 	void addPassengerToWaitingList(Passenger* passenger, const Seat::Type seat);
 	void removePassenger(string& name);
@@ -33,14 +33,9 @@ public:
 	WaitingList* getWaitingList();
 	BookedList* getBookedList();
 
-	 void setFlightNumber(string _flightNumber);
-	 void setFlightCapacity(const int _capacity);
-	 //void setFlightTime(times);
-	 void setFlightDate(Date& _date);
-
 private:
 	string flightNumber;
-	const int capacity;
+	int capacity;
 	Date date;
 
 	WaitingList waitingList;

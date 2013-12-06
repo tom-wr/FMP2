@@ -9,8 +9,11 @@
 
 BookedList::BookedList(int capacity)
 {
-	firstCapacity = (capacity * 0.10);
+	cout << "full capacity: " << capacity << endl;
+	firstCapacity = (int)floor(capacity*0.1);
+	cout << "First capacity: " << firstCapacity << endl;
 	economyCapacity = capacity - firstCapacity;
+	cout << "Economy capacity: " << economyCapacity <<endl;
 }
 
 int BookedList::getFirstCapacity()

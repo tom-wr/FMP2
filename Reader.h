@@ -47,6 +47,7 @@ private:
 #include "Flight.h"
 #include "FlightList.h"
 #include "Date.h"
+#include "Utils.h"
 
 #include <iostream>
 #include <fstream>
@@ -57,9 +58,9 @@ using namespace std;
 class Reader {
 public:
         Reader(FlightList& fl);
-         void readInFile();
+        void read(string& filename);
 private:
-         FlightList& fl;
+         FlightList& flightList;
 };
 
 #endif

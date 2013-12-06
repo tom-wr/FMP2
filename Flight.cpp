@@ -2,8 +2,8 @@
 #include "Flight.h"
 
 // Constructor for flight
-Flight::Flight(string& _flightNumber, const int _capacity, Date& _date)
-: flightNumber(_flightNumber), capacity(_capacity), date(_date), bookedList(10)
+Flight::Flight(string& _flightNumber, int _capacity, Date& _date)
+: flightNumber(_flightNumber), capacity(_capacity), date(_date), bookedList(_capacity)
 {
 }
 
