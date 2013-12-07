@@ -14,14 +14,16 @@
 using namespace std;
 
 
-class View {
-public:
-	View();
+namespace View {
+    
 	void printmenu();
 	void displayError(string& str);
+	void displayQuestion(string& str);
 	void displayView(string& str);
-  void displayIntructions(char& str);
+    void displayIntructions(char& str);
     void displayHeads(char& str);
+    
+    void FlightReserved(const string& str1, const string& str2);
+    void ListFirstWaiting(const string& str1, const string& str2, const string& str3);
+    void ListEconomyWaiting(const string& str1, const string& str2, const string& str3);
 };
-
-#endif /* VIEW_H_ */

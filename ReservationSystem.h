@@ -16,8 +16,10 @@
 #include "PassengerList.h"
 #include "Flight.h"
 #include "UI.h"
+#include "View.h"
 
 using namespace std;
+using namespace View;
 
 class ReservationSystem
 {
@@ -29,8 +31,8 @@ public:
 	void bookSeat(Passenger* passenger, Booking& booking, Flight* flight);
 	void bookPassengerOnFlight(Passenger* passenger, Booking& booking, Flight* flight);
 	void queuePassengerOnFlight(Passenger* passenger, Booking& booking, Flight* flight);
-
-//private
+    
+    //private
 	FlightList& flightList;
 	PassengerList& passengerList;
 	bool dateIsValid(Passenger* passenger, Date& date);
