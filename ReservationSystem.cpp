@@ -8,17 +8,19 @@ ReservationSystem::ReservationSystem(FlightList& _flightList, PassengerList& _pa
 void ReservationSystem::makeReservation()
 {
 	// get user input holder
-	/**/ Seat::Type seat = Seat::FIRST;
+	/**/
 	UI::outputAskPassengerName();
 	string passengerName = UI::inputName();
+    
 	UI::outputAskFlightNumber();
 	string flightNumber = UI::inputFlightNumber();
-
+    
+    Seat::Type seat = Seat::FIRST;
 	Booking booking(flightNumber, seat, BookingStatus::NONE);
 	Flight *flight = flightList.getFlight(flightNumber);
 	if(flight)
 	{
-		cout << "Flight exists" << endl;
+        
 		Passenger *passenger = findOrCreatePassenger(passengerName);
 		if( !isDoubleBooking(passenger , flightNumber) && !isDateClash(passenger, flight->getDate()) )
 		{
@@ -48,15 +50,16 @@ Passenger* ReservationSystem::findOrCreatePassenger(string& passengerName)
 
 void ReservationSystem::bookSeat(Passenger* passenger, Booking& booking, Flight* flight)
 {
-	cout << passenger->getName() << endl;
-	cout << flight->getCapacity() << endl;
+	//cout << passenger->getName() << endl;
+	//cout << flight->getCapacity() << endl;
+    
 	Seat::Type seat = booking.getSeatType();
 	if(flight->checkSeatIsAvailable(seat))
 	{
 		cout << "booking passenger straight on flight!" << endl;
 		bookPassengerOnFlight(passenger, booking, flight);
 	}
-
+    
 	else
 	{
 		cout << "Seat unavailable for chosen class!" << endl;
@@ -86,6 +89,9 @@ void ReservationSystem::bookPassengerOnFlight(Passenger* passenger, Booking& boo
 	booking.setStatus(BookingStatus::BOOKED);
 	passenger->addBooking(booking);
 	flight->addPassengerToBookedList(passenger, booking.getSeatType());
+    string notification = "1";
+    
+    UI::outputFlightNotification( notification, passenger->getName(), flight->getFlightNumber(),booking.getSeatType());
 }
 
 void ReservationSystem::queuePassengerOnFlight(Passenger* passenger, Booking& booking, Flight* flight)
@@ -93,6 +99,8 @@ void ReservationSystem::queuePassengerOnFlight(Passenger* passenger, Booking& bo
 	booking.setStatus(BookingStatus::WAITING);
 	passenger->addBooking(booking);
 	flight->addPassengerToWaitingList(passenger, booking.getSeatType());
+	string notification("2");
+	UI::outputFlightNotification( notification, passenger->getName(), flight->getFlightNumber(),booking.getSeatType() );
 }
 
 bool ReservationSystem::checkSameNumber(const int& i, const int& j)
@@ -106,17 +114,19 @@ bool ReservationSystem::checkSameNumber(const int& i, const int& j)
 bool ReservationSystem::dateIsDifferent(Date& date, Date& bookedDate)
 {
 	if(		checkSameNumber(date.getYear(), bookedDate.getYear())
-		&& 	checkSameNumber(date.getMonth(), bookedDate.getMonth())
-		&& 	checkSameNumber(date.getDay(), bookedDate.getDay()) )
+       && 	checkSameNumber(date.getMonth(), bookedDate.getMonth())
+       && 	checkSameNumber(date.getDay(), bookedDate.getDay()) )
 	{
-		cout << "date same" << endl;
+		//UI::output();
+		string daterror ="Date";
+		View::displayError(daterror);
 		return false;
 	}
 	else if( abs(date.getDay()-bookedDate.getDay()) == 1)
 	{
 		//checkTimeDifference(date.getTime(), bookedDate.getTime());
 	}
-	cout << "date different" << endl;
+    
 	return true;
 }
 
@@ -156,3 +166,4 @@ bool ReservationSystem::isDateClash(Passenger* passenger, Date& date)
 	else
 		return false;
 }
+

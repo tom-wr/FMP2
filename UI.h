@@ -6,9 +6,13 @@
 #include <iostream>
 
 #include "Utils.h"
+#include "View.h"
+#include "Seat.h"
+
 
 using namespace std;
 using namespace Utils;
+using namespace View;
 
 namespace UI
 {
@@ -20,6 +24,10 @@ namespace UI
 	void outputMainMenu();
 	void outputAskPassengerName();
 	void outputAskFlightNumber();
+	void seatType();
+	void outputFlightNotification(string& s, const string& s1, const string& s2, const string& str3);
+	void ListFirstWaiting(const string& s1, const string& s2, const string& str3);
+	void ListEconomyWaiting(const string& s1, const string& s2, const string& str3);
 }
 
 #endif
