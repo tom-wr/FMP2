@@ -9,6 +9,15 @@
 #define stringify( name ) # name
 namespace UI
 {
+
+	string in()
+	{
+		string input;
+		getline(cin, input);
+		input = Utils::toUppercase(input);
+		return input;
+	}
+
 	bool inputYesNo(string& question)
 	{
 		string answer;
@@ -17,10 +26,7 @@ namespace UI
 		{
 			cout << question << endl;
 			cout << "Please enter Yes or No [Y/N]" << endl;
-			cin >> answer;
-			answer = Utils::toUppercase(answer);
-            //	cout << "You entered " << answer << endl;
-			cout << answer << " Y "<< endl;
+			answer = in();
 			cout << endl;
 		}
 		if(answer == "Y")
@@ -31,62 +37,110 @@ namespace UI
     
 	string inputName()
 	{
-		string firstname,lastname;
-		cin >> firstname >>lastname;
-        //	cout << "entered: " << firstname <<" " <<lastname <<endl;
-		return firstname+ ""+lastname;
+		string name;
+		bool passed = false;
+		while(!passed)
+		{
+			name = in();
+			passed = Utils::validateName(name);
+			if(!passed)
+				View::error(View::invalidName);
+		}
+		return name;
 	}
     
 	string inputFlightNumber()
 	{
 		string flightNumber;
-		cin >> flightNumber;
-        //	cout << "entered " << flightNumber;
+		bool passed = false;
+		while(!passed)
+		{
+			flightNumber = in();
+			passed = Utils::validateFlightNumber(flightNumber);
+			if(!passed)
+				View::error(View::invalidFlight);
+		}
 		return flightNumber;
 	}
     
 	int inputMenuOption()
 	{
 		string answer;
-		cin >> answer;
-		int ianswer = atoi(answer.c_str());
+		int ianswer;
+		bool passed = false;
+		while(!passed)
+		{
+			answer = in();
+			if(Utils::stringIsDigit(answer))
+			{
+				ianswer = atoi(answer.c_str());
+				if(ianswer > 0 && ianswer <= 6)
+					passed = true;
+				else
+					View::error(View::invalidMenuChoice);
+			}
+		}
 		return ianswer;
 	}
-    
-	void outputMainMenu()
+
+    Seat::Type inputSeatType()
 	{
-        View::printmenu();
-	}
-    Seat::Type inputseatType()
-	{
-		string seatType;
-		cin >> seatType;
-		if(seatType =="FIRST"){
-			return Seat ::FIRST;
-		}else{
-			return Seat ::ECONOMY;
+		string seat;
+		bool passed = false;
+		Seat::Type seatType;
+		while(!passed)
+		{
+			seat = in();
+			if(seat == "FIRST")
+			{
+				seatType = Seat::FIRST;
+				passed = true;
+			}
+			else if(seat == "ECONOMY")
+			{
+				seatType = Seat::ECONOMY;
+				passed = true;
+			}
+			else
+				View::error(View::invalidSeatType);
 		}
+		return seatType;
 	}
+
+    void outputMainMenu()
+	{
+		View::printmenu();
+	}
+
 	void outputAskPassengerName()
 	{
-		string name = "Firstname and Lastname";
-		View::displayQuestion(name);
+		string name = "Please enter full name of the passenger:";
+		View::question(name);
 	}
+
 	void outputAskSeatType()
     {
-        string seat = "Seat Type";
-        View::displayQuestion(seat);
+        string seat = "Please enter the seat class [First or Economy]:";
+        View::question(seat);
     }
     
 	void outputAskFlightNumber()
 	{
-		string fn ="Flight Number";
-		View::displayQuestion(fn);
+		string flightNumber = "Please enter the flight number:";
+		View::question(flightNumber);
 	}
-    void outputInvalid(string& s){
-        View::displayError(s);
+
+    void outputError(string& errorMessage)
+    {
+        View::error(errorMessage);
     }
-    void outputFlightNotification(string& c, const string& s1, const string& s2 , const string& s3){
+
+    void outputSuccess(string& successMessage)
+    {
+    	View::success(successMessage);
+    }
+
+   /* void outputFlightNotification(string& c, string& s1, string& s2 , string& s3){
         
         if(c == "1") {
             View:: FlightReserved(s1,s2);
@@ -95,9 +149,31 @@ namespace UI
         }
         else
             View::ListEconomyWaiting(s1,s2,s3);
-    }
-    
-    
+    }*/
+
+    void successAddedToBookedList(const string& passengerName, const string& flightNumber, const string& seat)
+	{
+		cout << "\t+ Passenger " << passengerName
+				<< " has booked a " << seat
+				<< " class seat for flight " << flightNumber << endl;
+	}
+
+	void successAddedToWaitingList(const string& passengerName, const string& flightNumber, const string& seat)
+	{
+		cout << "\t+ Passenger " << passengerName
+				<< " has been added to the " << seat
+				<< " class waiting list for flight " << flightNumber << endl;
+	}
+
+	void successCancelledPassenger(string& passengerName)
+	{
+		cout<<"\t+ Passenger " << passengerName << " has been removed from flight" << endl;
+	}
+
+	void successTransferedPassenger(string& passengerName, string& seat)
+	{
+		cout<<"\t+ Passenger " << passengerName << " has been transfered from the " << seat << " waiting list to the booked list" << endl;
+	}
 }
 
 

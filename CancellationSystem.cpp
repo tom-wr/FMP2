@@ -12,35 +12,26 @@ void CancellationSystem::makeCancellation()
 	UI::outputAskFlightNumber();
 	string flightNumber = UI::inputFlightNumber();
 
-	cout << "making cancellation" << endl;
 	// Get flight and passenger
 	Flight *flight = flightList.getFlight(flightNumber);
 	Passenger *passenger = passengerList.getPassenger(passengerName);
-	cout << "-- get flight and passenger" << endl;
 	if(flight && passenger)
 	{
 		Seat::Type seatFreed = passenger->getBookingByFlightNumber(flightNumber)->getSeatType();
-		cout << "--- removing passenger" << endl;
 		// remove passenger from flight and remove booking from passenger
 		flight->removePassenger(passengerName);
 		passenger->removeBooking(flightNumber);
-
-		cout << "--- promoting passengers" << endl;
+		View::successCancelledPassenger(passengerName);
 		//promote waiting passengers if space created in booked list
 		transferPassengers(flight, seatFreed);
-
 		//remove passenger from system if they have no bookings
-		cout << "--- removing passenger from system" << endl;
 		if(passenger->getBookings()->empty())
 			passengerList.removePassenger(passengerName);
-		cout << "--- finished cancellation" << endl;
-		// clean up
 	}
 }
 
 void CancellationSystem::transferPassengers(Flight* flight, Seat::Type seat)
 {
-	cout << "--- transferring passenger" << endl;
 	BookedList *bookedList = flight->getBookedList();
 	WaitingList *waitingList = flight->getWaitingList();
 	if(seat == Seat::FIRST)
@@ -49,7 +40,10 @@ void CancellationSystem::transferPassengers(Flight* flight, Seat::Type seat)
 				&& !(waitingList->getFirstClassList().empty()) )
 		{
 			Passenger *nextPassenger = waitingList->popFirstClassWaiting();
+			Booking* booking = nextPassenger->getBookingByFlightNumber(flight->getFlightNumber());
+			booking->setStatus(BookingStatus::BOOKED);
 			bookedList->addPassengerToFirst(nextPassenger);
+			View::successTransferedPassenger(nextPassenger->getName(), Seat::toString[Seat::FIRST]);
 		}
 	}
 	else if (seat == Seat::ECONOMY)
@@ -58,12 +52,10 @@ void CancellationSystem::transferPassengers(Flight* flight, Seat::Type seat)
 				&& !(waitingList->getEconomyClassList().empty()) )
 		{
 			Passenger* nextPassenger = waitingList->popEconomyClassWaiting();
-			waitingList->addPassengerToEconomy(nextPassenger);
+			Booking* booking = nextPassenger->getBookingByFlightNumber(flight->getFlightNumber());
+			booking->setStatus(BookingStatus::BOOKED);
+			bookedList->addPassengerToEconomy(nextPassenger);
+			View::successTransferedPassenger(nextPassenger->getName(), Seat::toString[Seat::ECONOMY]);
 		}
 	}
-}
-
-void CancellationSystem::makeTransfer()
-{
-
 }

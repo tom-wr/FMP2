@@ -25,13 +25,13 @@ void systemsGo()
 
 	Reader reader(fl);
 	string filename("FCGDATA.txt");
-	reader.read(filename);
+	reader.readFlightData(filename);
 	ReservationSystem rsv(fl, pl);
 	CancellationSystem cnl(fl, pl);
 	EnquirySystem enq(fl, pl);
 
 	int choice = 0;
-	while(choice != 5)
+	while(choice != 6)
 	{
 		UI::outputMainMenu();
 		choice = UI::inputMenuOption();

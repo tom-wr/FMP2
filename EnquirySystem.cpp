@@ -21,22 +21,22 @@ void EnquirySystem::enquireFlightInformation()
 		deque<Passenger*> waitingFirst = waitingList->getFirstClassList();
 		deque<Passenger*> waitingEconomy = waitingList->getEconomyClassList();
 
-		cout << endl;
-		cout << "FLIGHT " << flightNumber << endl;
-		cout << endl;
-		cout << "BOOKED FIRST CLASS" << endl;
+		string subBookedFirst("BOOKED FIRST CLASS");
+		string subBookedEconomy("BOOKED ECONOMY CLASS");
+		string subWaitingFirst("WAITING FIRST CLASS");
+		string subWaitingEconomy("WAITING ECONOMY CLASS");
+		string date = flight->getDate().toString();
+		string time = flight->getDate().timeString();
+		View::flightEnquiryHeader(flightNumber, date, time);
+		View::flightEnquirySubHeader(subBookedFirst);
 		enquireFlightPassengers(bookedFirst);
-		cout << endl;
-		cout << "BOOKED ECONOMY CLASS" << endl;
+		View::flightEnquirySubHeader(subBookedEconomy);
 		enquireFlightPassengers(bookedEconomy);
-		cout << endl;
-		cout << "WAITING FIRST CLASS" << endl;
+		View::flightEnquirySubHeader(subWaitingFirst);
 		enquireFlightPassengers(waitingFirst);
-		cout << endl;
-		cout << "WAITING ECONOMY CLASS" << endl;
+		View::flightEnquirySubHeader(subWaitingEconomy);
 		enquireFlightPassengers(waitingEconomy);
 	}
-	cout << "finished enquiring!" <<endl;
 }
 
 void EnquirySystem::enquireFlightPassengers(deque<Passenger*> list)
@@ -46,7 +46,8 @@ void EnquirySystem::enquireFlightPassengers(deque<Passenger*> list)
 		deque<Passenger*>::iterator it;
 		for(it = list.begin(); it != list.end(); ++it)
 		{
-			cout << (*it)->getName() << endl;
+			string passengerName = (*it)->getName();
+			View::flightEnquiryEntry(passengerName);
 		}
 	}
 }
@@ -58,17 +59,19 @@ void EnquirySystem::enquirePassengerInformation()
 	Passenger *passenger = passengerList.getPassenger(passengerName);
 	if(passenger)
 	{
-		cout << endl;
-		cout << "------------------" << endl;
-		cout << endl;
-		cout << "PASSENGER " << passengerName << endl;
+		View::passengerEnquiryHeader(passengerName);
+
 		map<string, Booking*> *bookings = passenger->getBookings();
 		map<string, Booking*>::iterator it;
 		for(it = bookings->begin(); it != bookings->end(); ++it)
 		{
-			cout << "FlightNumber: " << (*it).first << endl;
-			cout << "Class: " << (*it).second->getSeatType() << endl;
-			cout << "Status: " << (*it).second->getStatus() << endl;
+			string flightNumber = (*it).first;
+			Seat::Type seat = (*it).second->getSeatType();
+			BookingStatus::Type status = (*it).second->getStatus();
+			string s_seat = Seat::toString[seat];
+			string s_status = BookingStatus::toString[status];
+
+			View::passengerEnquiryEntry(flightNumber, s_seat, s_status);
 		}
 	}
 }

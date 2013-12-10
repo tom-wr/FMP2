@@ -11,21 +11,23 @@
 
 
 using namespace std;
-using namespace Utils;
-using namespace View;
 
 namespace UI
 {
+	string in();
 	string inputName();
 	string inputFlightNumber();
 	int inputMenuOption();
 	bool inputYesNo(string& question);
+	Seat::Type inputSeatType();
 	
+	void outputError(const string&);
+	void outputCancellation(string& passengerName, string& flightNumber);
 	void outputMainMenu();
 	void outputAskPassengerName();
 	void outputAskFlightNumber();
-	void seatType();
-	void outputFlightNotification(string& s, const string& s1, const string& s2, const string& str3);
+	void outputAskSeatType();
+	//void outputFlightNotification(string& s, const string& s1, const string& s2, const string& str3);
 	void ListFirstWaiting(const string& s1, const string& s2, const string& str3);
 	void ListEconomyWaiting(const string& s1, const string& s2, const string& str3);
 }

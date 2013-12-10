@@ -109,7 +109,7 @@ Date& Flight::getDate()
 }
 
 // get the flight number of the flight
-const string& Flight::getFlightNumber() const
+string& Flight::getFlightNumber()
 {
 	return flightNumber;
 }

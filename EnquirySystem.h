@@ -1,8 +1,4 @@
-/*
- * EnquirySystem.h
- *
- *  Created on: 2 Dec 2013
- *      Author: tomto
+/** EnquirySystem class controls queries for passenger and flight information.
  */
 
 #ifndef ENQUIRYSYSTEM_H_
@@ -10,7 +6,7 @@
 
 #include <string>
 #include <deque>
-#include <iostream>
+#include <iostream> //cout
 #include <map>
 
 #include "FlightList.h"
@@ -25,13 +21,26 @@ using namespace std;
 class EnquirySystem
 {
 public:
-
+	/**
+	 * EnquirySystem constructor.
+	 * @param flightList FlightList- reference to the flight list.
+	 * @param passengerList PassengerList - reference to the passenger list.
+	 */
 	EnquirySystem(FlightList& flightList, PassengerList& passengerList);
-	void enquireFlightInformation();
-	void enquirePassengerInformation();
+	/**
+	 * queries flight information.
+	 */
+	void enquireFlightInformation(void);
+	/**
+	 * queries passenger information.
+	 */
+	void enquirePassengerInformation(void);
 private:
+	// reference to the flight list.
 	FlightList& flightList;
+	// reference to the passenger list.
 	PassengerList& passengerList;
+
 	void enquireFlightPassengers(deque<Passenger*> list);
 };
 #endif /* ENQUIRYSYSTEM_H_ */

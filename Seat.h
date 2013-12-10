@@ -1,18 +1,23 @@
-/*
- * Seat.h
+/** Seat enum to hold types of seat available.
  *
- *  Created on: 24 Nov 2013
- *      Author: tomto
  */
-
 #ifndef SEAT_H_
 #define SEAT_H_
 
+#include <string>
+
 namespace Seat{
+
+	/**
+	 * Seat type enum.
+	 */
 	enum Type
 	{
 		FIRST,
-		ECONOMY
+		ECONOMY,
+		SIZE_OF_ENUM
 	};
+
+	static const char* toString[SIZE_OF_ENUM] = {"FIRST", "ECONOMY"};
 }
 #endif /* SEAT_H_ */

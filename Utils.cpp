@@ -16,44 +16,78 @@ namespace Utils
 		return out;
 	}
 
-	bool validateLine(string& flightNumber, string& capacity, string& time)
-	{
-		validateFlightNumber(flightNumber);
-		validateCapacity(capacity);
-		validateTime(time);
-
-		return false;
-	}
-
 	bool checkStringLength(string& str, int min, int max)
 	{
-	        int len = str.length();
-	        if( len < min || len > max )
-	        {
-	                cout << "Error: string length is out of bounds" << endl;
-	                return false;
-	        }
-	        return true;
-	}
-
-	bool validateFlightNumber(string& flightNumber)
-	{
-		if(checkStringLength(flightNumber, 1, 30))
-			return true;
-		return false;
+		int len = str.length();
+		if( len < min || len > max )
+		{
+			cout << "Error: string length is out of bounds" << endl;
+			return false;
+		}
+		return true;
 	}
 
 	bool stringIsDigit(string& str)
 	{
-	   for (int i=0; i<str.length(); i++)
+	   for (int i=0; i < str.length(); i++)
 	   {
-	         if(!isdigit(str[i]))
-	         {
-	                 cout<<"Error:string is not digit"<<endl;
-	                 return false;
-	         }
+			if(!isdigit(str[i]))
+			{
+				 cout<<"Error:string is not digit"<<endl;
+				 return false;
+			}
 	   }
 	   return true;
+	}
+
+	bool stringIsAlNum(string& str)
+	{
+	   for (int i=0; i < str.length(); i++)
+	   {
+			if(!isalnum(str[i]))
+			{
+				 cout<<"Error:string is not alphanumeric"<<endl;
+				 return false;
+			}
+	   }
+	   return true;
+	}
+
+	bool stringIsAlpha(string& str)
+	{
+		for (int i = 0; i < str.length(); i++)
+		{
+			if(!isalpha(str[i]))
+			{
+				cout << "Error: string is not alpha" << endl;
+				return false;
+			}
+		}
+		return true;
+	}
+
+	bool stringIsAlphaSpace(string& str)
+	{
+		for (int i = 0; i < str.length(); i++)
+		{
+			if(!isspace(str[i]))
+			{
+				if(!isalpha(str[i]))
+				{
+					cout << "Error: string is not alpha or space" << endl;
+					return false;
+				}
+			}
+		}
+		return true;
+	}
+
+
+	bool validateFlightNumber(string& flightNumber)
+	{
+		if(checkStringLength(flightNumber, 5, 5) && stringIsAlNum(flightNumber))
+			return true;
+		return false;
 	}
 
 	bool validateCapacity(string& capacity)
@@ -75,24 +109,31 @@ namespace Utils
 		{
 			int itime = atoi(time.c_str());
 			cout << itime << endl;
-			cout << (itime/1000) << " " << ((itime%100)/10) << endl;
-			if((itime/1000 < 3) && ((itime%100)/10 < 6))
+			cout << floor(itime/1000) << " " << ((itime%100)/10) << endl;
+			int hours = (int)floor(itime/1000);
+			int minutes = (int)floor((itime%100))/10;
+			if((hours < 3) && (minutes < 6))
 				return true;
 		}
 		return false;
 	}
 
-	bool stringIsAlpha(string& str)
+	bool validateDate(string& date)
 	{
-		for (int i = 0; i < str.length(); i++)
+		if(checkStringLength(date, 8, 8) && stringIsDigit(date))
 		{
-				if(!isalpha(str[i]))
-				{
-						cout << "Error: string is not alpha" << endl;
-						return false;
-				}
+			return true;
 		}
-		return true;
+		return false;
+	}
+
+
+	bool validateName(string& name)
+	{
+		if(stringIsAlphaSpace(name) && checkStringLength(name, 1, 30))
+			return true;
+		else
+			return false;
 	}
 
 	vector<int> splitDateString(string& str)

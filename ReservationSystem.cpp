@@ -11,11 +11,13 @@ void ReservationSystem::makeReservation()
 	/**/
 	UI::outputAskPassengerName();
 	string passengerName = UI::inputName();
-    
+
 	UI::outputAskFlightNumber();
 	string flightNumber = UI::inputFlightNumber();
+
+	UI::outputAskSeatType();
+	Seat::Type seat = UI::inputSeatType();
     
-    Seat::Type seat = Seat::FIRST;
 	Booking booking(flightNumber, seat, BookingStatus::NONE);
 	Flight *flight = flightList.getFlight(flightNumber);
 	if(flight)
@@ -50,19 +52,13 @@ Passenger* ReservationSystem::findOrCreatePassenger(string& passengerName)
 
 void ReservationSystem::bookSeat(Passenger* passenger, Booking& booking, Flight* flight)
 {
-	//cout << passenger->getName() << endl;
-	//cout << flight->getCapacity() << endl;
-    
 	Seat::Type seat = booking.getSeatType();
 	if(flight->checkSeatIsAvailable(seat))
 	{
-		cout << "booking passenger straight on flight!" << endl;
 		bookPassengerOnFlight(passenger, booking, flight);
 	}
-    
 	else
 	{
-		cout << "Seat unavailable for chosen class!" << endl;
 		// if first class seat requested ask to change class if economy is available
 		if(seat == Seat::FIRST && flight->checkSeatIsAvailable(Seat::ECONOMY))
 		{
@@ -87,20 +83,21 @@ void ReservationSystem::bookSeat(Passenger* passenger, Booking& booking, Flight*
 void ReservationSystem::bookPassengerOnFlight(Passenger* passenger, Booking& booking, Flight* flight)
 {
 	booking.setStatus(BookingStatus::BOOKED);
+	Seat::Type seat = booking.getSeatType();
 	passenger->addBooking(booking);
-	flight->addPassengerToBookedList(passenger, booking.getSeatType());
-    string notification = "1";
-    
-    UI::outputFlightNotification( notification, passenger->getName(), flight->getFlightNumber(),booking.getSeatType());
+	flight->addPassengerToBookedList(passenger, seat);
+    //UI::outputFlightNotification(passenger->getName(), flight->getFlightNumber(), Seat::toString[booking.getSeatType()]);
+	View::successAddedToBookedList(passenger->getName(), flight->getFlightNumber(), Seat::toString[seat]);
 }
 
 void ReservationSystem::queuePassengerOnFlight(Passenger* passenger, Booking& booking, Flight* flight)
 {
+	Seat::Type seat = booking.getSeatType();
 	booking.setStatus(BookingStatus::WAITING);
 	passenger->addBooking(booking);
-	flight->addPassengerToWaitingList(passenger, booking.getSeatType());
-	string notification("2");
-	UI::outputFlightNotification( notification, passenger->getName(), flight->getFlightNumber(),booking.getSeatType() );
+	flight->addPassengerToWaitingList(passenger, seat);
+	//UI::outputFlightNotification(passenger->getName(), flight->getFlightNumber(),Seat::toString[booking.getSeatType()] );
+	View::successAddedToWaitingList(passenger->getName(), flight->getFlightNumber(), Seat::toString[seat]);
 }
 
 bool ReservationSystem::checkSameNumber(const int& i, const int& j)
@@ -119,7 +116,7 @@ bool ReservationSystem::dateIsDifferent(Date& date, Date& bookedDate)
 	{
 		//UI::output();
 		string daterror ="Date";
-		View::displayError(daterror);
+		View::error(daterror);
 		return false;
 	}
 	else if( abs(date.getDay()-bookedDate.getDay()) == 1)
