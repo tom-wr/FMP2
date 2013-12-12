@@ -5,11 +5,11 @@
 
 #include <string>
 #include <vector>
-#include <iostream>
 
 #include "WaitingList.h"
 #include "BookedList.h"
 #include "Date.h"
+#include "View.h"
 
 using namespace std;
 
@@ -93,12 +93,20 @@ private:
 	// flight date
 	Date date;
 
+	// lists for the flight
 	WaitingList waitingList;
 	BookedList bookedList;
 
-	// checks if first class booked list is full.
+	/*
+	 * checks if the first class booked list is full/
+	 * @return bool - true if first class list is full / false if not full
+	 */
 	bool firstIsFull(void);
-	// checks if economy class booked list is full.
+
+	/*
+	 * checks if the economy class booked list is full/
+	 * @return bool - true if economy class list is full / false if not full
+	 */
 	bool economyIsFull(void);
 };
 #endif /* FLIGHT_H_ */

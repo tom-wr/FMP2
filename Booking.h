@@ -5,7 +5,6 @@
 #define BOOKING_H_
 
 #include <string>
-#include <iostream> //cout
 #include "Seat.h"
 #include "BookingStatus.h"
 
@@ -21,16 +20,19 @@ public:
 	 * @param _BookingStatus::Type status of the booking
 	 */
 	Booking(string _flightNumber, Seat::Type _seat, BookingStatus::Type _status);
+
 	/**
 	 * Booking constructor. The booking status is set at none by default.
 	 * @param _flightNumber string flight number of booking
 	 * @param _seat Seat::Type type of seat
 	 */
 	Booking(string _flightNumber, Seat::Type _seat);
+
 	/**
 	 * Booking destructor.
 	 */
 	~Booking();
+
 	/**
 	 * gets the seat type of the booking
 	 * @return Seat::Type - the seat type
@@ -63,8 +65,11 @@ public:
 
 
 private:
+	// flight number of the booking
 	string flightNumber;
+	// seat class type of the booking
 	Seat::Type seat;
+	// status of the booking
 	BookingStatus::Type status;
 };
 #endif /* BOOKING_H_ */

@@ -9,8 +9,10 @@
 #include "FlightList.h"
 #include "Date.h"
 #include "Utils.h"
-#include <time.h>
+#include "UI.h"
+#include "View.h"
 
+#include <time.h>
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -58,6 +60,12 @@ public:
 	 */
 	int getMaxDayForMonth(int month, bool leapYear);
 
+	/**
+	 * splits time and date strings to create a date object.
+	 * @param time string& - time string to be split.
+	 * @param date string& - date string to be split.
+	 * @return Date* - pointer to created date object.
+	 */
 	Date* createFlightDate(string& time, string& date);
 };
 

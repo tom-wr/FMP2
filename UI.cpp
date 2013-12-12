@@ -1,15 +1,18 @@
-/*
- * UI.cpp
- *
- *  Created on: 3 Dec 2013
- *      Author: tomto
+/**
+ * UI class handles user input and output.
+ * It controls how information is displayed and performs validation checks on input.
  */
 
 #include "UI.h"
-#define stringify( name ) # name
+
 namespace UI
 {
 
+	/**
+	 * gets input string from the user and returns as a string.
+	 * the string is always converted to uppercase letters.
+	 * @return string - input string from the user.
+	 */
 	string in()
 	{
 		string input;
@@ -18,14 +21,17 @@ namespace UI
 		return input;
 	}
 
-	bool inputYesNo(string& question)
+	/**
+	 * get user input for a yes or no question.
+	 * The user can reply either 'y' or 'n'.
+	 * @return string true for yes / false for no.
+	 */
+	bool inputYesNo()
 	{
 		string answer;
-        
 		while((answer != "Y") && (answer != "N"))
 		{
-			cout << question << endl;
-			cout << "Please enter Yes or No [Y/N]" << endl;
+			View::question(View::q_yesOrNo);
 			answer = in();
 			cout << endl;
 		}
@@ -35,6 +41,10 @@ namespace UI
 			return false;
 	}
     
+	/**
+	 * gets user input for a name and validates it.
+	 * @return string - name from user input.
+	 */
 	string inputName()
 	{
 		string name;
@@ -49,6 +59,10 @@ namespace UI
 		return name;
 	}
     
+	/**
+	 * gets user input for a flight number and validates it.
+	 * @return string - flight number from user input.
+	 */
 	string inputFlightNumber()
 	{
 		string flightNumber;
@@ -63,6 +77,10 @@ namespace UI
 		return flightNumber;
 	}
     
+	/**
+	 * gets user input for a menu choice and validates it.
+	 * @return string - menu choice from user input.
+	 */
 	int inputMenuOption()
 	{
 		string answer;
@@ -76,13 +94,17 @@ namespace UI
 				ianswer = atoi(answer.c_str());
 				if(ianswer > 0 && ianswer <= 6)
 					passed = true;
-				else
-					View::error(View::invalidMenuChoice);
 			}
+			if(!passed)
+				View::error(View::invalidMenuChoice);
 		}
 		return ianswer;
 	}
 
+	/**
+	 * get user input for a seat type.
+	 * @return Seat::Type - seat type specified by user input.
+	 */
     Seat::Type inputSeatType()
 	{
 		string seat;
@@ -91,12 +113,12 @@ namespace UI
 		while(!passed)
 		{
 			seat = in();
-			if(seat == "FIRST")
+			if(seat == "FIRST" || seat == "F")
 			{
 				seatType = Seat::FIRST;
 				passed = true;
 			}
-			else if(seat == "ECONOMY")
+			else if(seat == "ECONOMY" || seat == "E")
 			{
 				seatType = Seat::ECONOMY;
 				passed = true;
@@ -107,73 +129,63 @@ namespace UI
 		return seatType;
 	}
 
+	void enterToContinue()
+	{
+		cout << endl;
+		View::question(View::q_pressEnter);
+		in();
+	}
+
+    /**
+	 * displays the main menu.
+	 */
     void outputMainMenu()
 	{
 		View::printmenu();
 	}
 
+    /**
+	 * displays question for passenger name.
+	 */
 	void outputAskPassengerName()
 	{
-		string name = "Please enter full name of the passenger:";
-		View::question(name);
+		View::question(View::q_passengerName);
 	}
 
+	/**
+	 * displays question for seat type.
+	 */
 	void outputAskSeatType()
     {
-        string seat = "Please enter the seat class [First or Economy]:";
-        View::question(seat);
+        View::question(View::q_seatType);
     }
     
+	/**
+	 * displays question for flight number.
+	 */
 	void outputAskFlightNumber()
 	{
-		string flightNumber = "Please enter the flight number:";
-		View::question(flightNumber);
+		View::question(View::q_flightNumber);
 	}
 
-    void outputError(string& errorMessage)
+	/**
+	 * formats a string as an error output message
+	 * @param errorMessage const string& - string to be output.
+	 */
+    void outputError(const string& errorMessage)
     {
         View::error(errorMessage);
     }
 
-    void outputSuccess(string& successMessage)
-    {
-    	View::success(successMessage);
-    }
-
-   /* void outputFlightNotification(string& c, string& s1, string& s2 , string& s3){
-        
-        if(c == "1") {
-            View:: FlightReserved(s1,s2);
-        }else if (c == "2"){
-            View::ListFirstWaiting(s1,s2,s3);
-        }
-        else
-            View::ListEconomyWaiting(s1,s2,s3);
-    }*/
-
-    void successAddedToBookedList(const string& passengerName, const string& flightNumber, const string& seat)
+	/**
+	 * formats a string as an output message
+	 * @param message string& - string to be output.
+	 */
+	void outputs(string& message)
 	{
-		cout << "\t+ Passenger " << passengerName
-				<< " has booked a " << seat
-				<< " class seat for flight " << flightNumber << endl;
+		cout << "\t " << message << endl;
 	}
 
-	void successAddedToWaitingList(const string& passengerName, const string& flightNumber, const string& seat)
-	{
-		cout << "\t+ Passenger " << passengerName
-				<< " has been added to the " << seat
-				<< " class waiting list for flight " << flightNumber << endl;
-	}
-
-	void successCancelledPassenger(string& passengerName)
-	{
-		cout<<"\t+ Passenger " << passengerName << " has been removed from flight" << endl;
-	}
-
-	void successTransferedPassenger(string& passengerName, string& seat)
-	{
-		cout<<"\t+ Passenger " << passengerName << " has been transfered from the " << seat << " waiting list to the booked list" << endl;
-	}
 }
 
 

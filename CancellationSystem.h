@@ -5,7 +5,6 @@
 
 #include <string>
 #include <vector>
-#include <iostream> // cout
 
 #include "FlightList.h"
 #include "PassengerList.h"
@@ -24,10 +23,12 @@ public:
 	 * @param passengerList PassengerList - reference to list of passengers
 	 */
 	CancellationSystem(FlightList& flightList, PassengerList& passengerList);
+
 	/**
-	 * cancels a passenger's booking from a flight
+	 * cancels a passenger's booking from a flight.
 	 */
 	void makeCancellation(void);
+
 private:
 	// reference to flight list
 	FlightList& flightList;

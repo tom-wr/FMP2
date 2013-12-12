@@ -1,7 +1,6 @@
 //============================================================================
 // Name        : FMP2_GO.cpp
-// Author      : 
-// Version     :
+// Version     : 
 // Copyright   : Your copyright notice
 // Description : Hello World in C++, Ansi-style
 //============================================================================
@@ -31,9 +30,10 @@ void systemsGo()
 	EnquirySystem enq(fl, pl);
 
 	int choice = 0;
-	while(choice != 6)
+	while(choice != 5)
 	{
 		UI::outputMainMenu();
+		View::question(View::q_menuChoice);
 		choice = UI::inputMenuOption();
 		switch(choice)
 		{
@@ -55,8 +55,7 @@ void systemsGo()
 	}
 }
 
-int main() {
-
+int main(int argc, char*argv[]) {
 	systemsGo();
 	return 0;
 }

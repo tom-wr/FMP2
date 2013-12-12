@@ -1,5 +1,9 @@
 /** FlightList class holds a list of Flight objects.
+ * The list is used to keep track of the Flight objects.
+ * Flights are only added to the list and live for the entirety
+ * of the program and therefore there is no need to remove flights.
  */
+
 
 #ifndef FLIGHTLIST_H_
 #define FLIGHTLIST_H_
@@ -14,17 +18,16 @@
 class FlightList
 {
 public:
+	/*
+	 * FlightList Constructor.
+	 */
+	FlightList(void){}
+
 	/**
 	 * adds flight to the flight list.
 	 * @param flight Flight& - the flight to be added to the list.
 	 */
 	void addFlight(Flight& flight);
-
-	/**
-	 * removes flight to the flight list.
-	 * @param flight Flight& - the flight to be removed from the list.
-	 */
-	void removeFlight(Flight& flight);
 
 	/**
 	 * searches for and returns a flight to the list.

@@ -9,7 +9,6 @@
 #include <map>
 #include <string>
 #include <utility> // pair
-#include <iostream> // cout
 
 #include "Seat.h"
 #include "Booking.h"
@@ -64,11 +63,6 @@ public:
 	 * @return Booking* - pointer to booking.
 	 */
 	Booking* getBookingByFlightNumber(string& flightNumber);
-
-	/**
-	 * Passenger destructor.
-	 */
-	~Passenger(void);
 
 private:
 	// passenger name.

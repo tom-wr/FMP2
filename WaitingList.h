@@ -6,7 +6,6 @@
 
 #include <string>
 #include <deque>
-#include <iostream> //cout
 
 #include "Passenger.h"
 
@@ -54,7 +53,7 @@ public:
 	virtual void removePassenger(string name);
 
 	/**
-	 * search for passenger in the deques.
+	 * search for passenger in all deques.
 	 * @param name string& - name of passenger to be found.
 	 * @return bool - true if passenger exists / false if passenger does not exist.
 	 */
@@ -103,7 +102,7 @@ protected:
 	bool removePassengerFromList(string name, deque<Passenger*>& list);
 
 	/**
-	 * searches for a passenger in a deque.
+	 * searches for a passenger in a specific deque.
 	 * @param name string& - name of passenger to be found.
 	 * @param list deque<Passenger*>& deque to be searched.
 	 * @return bool - true if passenger is found / false is passenger has not been found.

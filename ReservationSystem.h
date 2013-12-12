@@ -1,4 +1,6 @@
 /** ReservationSystem class controls the creation of bookings and adds passengers on flights.
+ * Many checks are made to see if the reservation is valid
+ * and if a passenger is allowed to be added to the flight
  */
 
 #ifndef RESERVATIONSYSTEM_H_
@@ -6,7 +8,6 @@
 
 #include <string>
 #include <map>
-#include <vector>
 
 #include "FlightList.h"
 #include "PassengerList.h"
@@ -27,6 +28,7 @@ public:
 
 	/**
 	 * makes a reservation for a passenger.
+	 * user input is required to determine the booking details
 	 */
 	void makeReservation(void);
 
@@ -97,11 +99,6 @@ private:
 	 * @return bool - true if there is a date clash / false if there is not a date clash.
 	 */
 	bool isDateClash(Passenger* passenger, Date& date);
-
-	/**
-	 * checks if number is the same // might not be needed.
-	 */
-	bool checkSameNumber(const int& i, const int& j);
 
 	/**
 	 * checks if dates are different.

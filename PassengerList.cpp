@@ -1,6 +1,9 @@
 #include "PassengerList.h"
 
-// Add a passenger to the appropriate list according to assigned seat preference
+/**
+ * create a passenger and add to the list.
+ * @param name string - the name of the new passenger.
+ */
 void PassengerList::addPassenger(string name)
 {
 	Passenger *pass_ptr = new Passenger(name);
@@ -8,14 +11,18 @@ void PassengerList::addPassenger(string name)
 }
 
 
-// Remove passenger from a given list by searching for matching name
+/**
+ * remove passenger from the list.
+ * @param name string& - the name of the passenger to be removed.
+ * @return bool - true if removal successful / false if the removal failed.
+ */
 bool PassengerList::removePassenger(string& name)
 {
-	for(vector<Passenger*>::iterator it = passengerList.begin(); it != passengerList.end(); ++it)
+	vector<Passenger*>::iterator it;
+	for( it = passengerList.begin(); it != passengerList.end(); ++it)
 	{
 		if( (*it)->getName() == name)
 		{
-			cout << name << " is being removed." << endl;
 			delete (*it);
 			passengerList.erase(it);
 			return true;
@@ -24,7 +31,11 @@ bool PassengerList::removePassenger(string& name)
 	return false;
 }
 
-// Search for passenger by name
+/**
+ * search for passengers in the passenger list.
+ * @param name string& - name of the passenger to search for.
+ * @return bool - true is passenger exists / false if passenger is not found.
+ */
 bool PassengerList::searchForPassenger(string& name)
 {
 	vector<Passenger*>::iterator it;
@@ -32,14 +43,17 @@ bool PassengerList::searchForPassenger(string& name)
 	{
 		if( (*it)->getName() == name)
 		{
-			cout << "just found " << (*it)->getName() << endl;;
 			return true;
 		}
 	}
 	return false;
 }
 
-// get pointer to passenger given a name
+/**
+ * get passenger from the passenger list.
+ * @param name string - name of passenger to be found.
+ * @return Passenger* - pointer to the found passenger. returns NULL is no passenger is found.
+ */
 Passenger* PassengerList::getPassenger(string name)
 {
 	for(vector<Passenger*>::iterator it = passengerList.begin(); it != passengerList.end(); ++it)

@@ -1,14 +1,24 @@
+/** Flight class holds it's own flight information and passenger lists.
+ */
 
 #include "Flight.h"
 
-// Constructor for flight
+/**
+ * Flight constructor.
+ * @param flightNumber string& - flight number.
+ * @param capacity int - capacity of flight.
+ * @param date Date& - date of flight.
+ */
 Flight::Flight(string& _flightNumber, int _capacity, Date& _date)
 : flightNumber(_flightNumber), capacity(_capacity), date(_date), bookedList(_capacity)
 {
 }
 
-// Add a passenger to the flight given the seat type so they are
-// added to the appropriate queue.
+/**
+ * adds a passenger to the booked list given the required seat type.
+ * @param passenger Passenger* - pointer to passenger to add.
+ * @param seat const Seat::Type - seat type indicating which list to add passenger to.
+ */
 void Flight::addPassengerToBookedList(Passenger* passenger, const Seat::Type seat)
 {
 	if(seat == Seat::FIRST)
@@ -21,6 +31,11 @@ void Flight::addPassengerToBookedList(Passenger* passenger, const Seat::Type sea
 	}
 }
 
+/**
+ * adds a passenger to the waiting list given the required seat type.
+ * @param passenger Passenger* - pointer to passenger to add.
+ * @param seat const Seat::Type - seat type indicating which list to add passenger to.
+ */
 void Flight::addPassengerToWaitingList(Passenger* passenger, const Seat::Type seat)
 {
 	if(seat == Seat::FIRST)
@@ -33,24 +48,31 @@ void Flight::addPassengerToWaitingList(Passenger* passenger, const Seat::Type se
 	}
 }
 
+/**
+ * remove passenger from flight.
+ * @param name string& - name of passenger to remove.
+ */
 void Flight::removePassenger(string& name)
 {
 	if(bookedList.searchForPassenger(name))
 	{
-		cout << "Removing passenger from booked list" << endl;
 		bookedList.removePassenger(name);
 	}
 	else if(waitingList.searchForPassenger(name))
 	{
-		cout << "Removing passenger from waiting list" << endl;
 		waitingList.removePassenger(name);
 	}
 	else
 	{
-		cout << "Passenger does not exist" << endl;
+		View::error(View::errorPassengerNotExist);
 	}
 }
 
+
+/*
+ * checks if the first class booked list is full/
+ * @return bool - true if first class list is full / false if not full
+ */
 bool Flight::firstIsFull()
 {
 	int capacity = bookedList.getFirstCapacity();
@@ -62,63 +84,85 @@ bool Flight::firstIsFull()
 		return true;
 }
 
+/*
+ * checks if the economy class booked list is full/
+ * @return bool - true if economy class list is full / false if not full
+ */
 bool Flight::economyIsFull()
 {
 	int capacity = bookedList.getEconomyCapacity();
 	int size = bookedList.getEconomySize();
+
 	if(size < capacity)
 		return false;
 	else
 		return true;
 }
 
+/**
+ * checks seat is available in booked list for given seat type.
+ * @param seat Seat::Type - seat type to be check if available.
+ */
 bool Flight::checkSeatIsAvailable(Seat::Type seat)
 {
-	cout << "- checking seat is available" << endl;
 	if((seat == Seat::FIRST) && firstIsFull())
-	{
-		cout << "- first seat is unavailable" << endl;
 		return false;
-	}
 	else if((seat == Seat::ECONOMY) && economyIsFull())
-	{
-		cout << "- economy seat is unavailable" << endl;
 		return false;
-	}
 	else
-	{
-		cout << "- seat is available" << endl;
 		return true;
-	}
 }
 
+/**
+ * searches for a passenger on the flight based on their name.
+ * @param passengerName string& - name of passenger to be searched for.
+ */
 bool Flight::searchForPassenger(string& passengerName)
 {
 	waitingList.searchForPassenger(passengerName);
 	return false;
 }
 
+/**
+ * getter for flight capacity.
+ * @return const int - capacity of flight.
+ */
 const int Flight::getCapacity() const
 {
 	return capacity;
 }
 
+/**
+ * getter for flight date.
+ * @return Date& - date of flight.
+ */
 Date& Flight::getDate()
 {
 	return date;
 }
 
-// get the flight number of the flight
+/**
+ * getter for flight number.
+ * @return const string& - flight number of flight.
+ */
 string& Flight::getFlightNumber()
 {
 	return flightNumber;
 }
 
+/**
+ * getter for booked list.
+ * @return BookedList* - pointer to booked list of flight.
+ */
 BookedList* Flight::getBookedList()
 {
 	return &bookedList;
 }
 
+/**
+ * getter for waiting list.
+ * @return WaitingList* - pointer to waiting list of flight.
+ */
 WaitingList* Flight::getWaitingList()
 {
 	return &waitingList;

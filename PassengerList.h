@@ -46,6 +46,7 @@ public:
 
 	/**
 	 * get passenger from the passenger list.
+	 * returns NULL if not found.
 	 * @param name string - name of passenger to be found.
 	 * @return Passenger* - pointer to the found passenger. returns NULL is no passenger is found.
 	 */
